@@ -1,0 +1,112 @@
+# ============================================================
+# VIRALSCOPE AI - Configuration
+# ============================================================
+
+project:
+  name: "ViralScope AI"
+  seed: 42
+  device: "auto"  # auto, cpu, cuda
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  tensor_dir: "data/tensors"
+  splits_dir: "data/splits"
+
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+
+  min_dataset_size: 10000
+  target_threshold: 1.5  # Multiplier > 1.5 = viral
+
+  thumbnail_url_template: "https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
+  thumbnail_fallback_url: "https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+  thumbnail_rate_limit: 10  # requests per second (YouTube CDN safe limit)
+
+training:
+  batch_size: 64
+  num_workers: 2  # DataLoader workers for parallel data loading
+  epochs: 50
+
+model:
+  cv:
+    backbone: "mobilenet_v2"
+    pretrained: true
+    weights: "DEFAULT"  # torchvision default weights
+    feature_dim: 1280
+    freeze_backbone: true
+
+  nlp:
+    checkpoint: "distilbert-base-uncased"
+    max_seq_length: 64
+    feature_dim: 768
+    freeze_backbone: true
+
+  fusion:
+    hidden_layers: [512, 128]
+    dropout: 0.4
+    activation: "ReLU"
+
+  # Learning rates
+  lr_backbone_cv: 1e-5
+  lr_backbone_nlp: 1e-5
+  lr_head: 1e-3
+
+  # Optimizer
+  optimizer: "AdamW"
+  weight_decay: 1e-4
+  betas: [0.9, 0.999]
+
+  # Loss
+  loss_function: "FocalLoss"
+  focal_loss_gamma: 2.0
+  focal_loss_alpha: null  # auto-computed from class distribution
+
+  # Scheduler
+  scheduler: "ReduceLROnPlateau"
+  scheduler_patience: 3
+  scheduler_factor: 0.5
+  scheduler_metric: "val_pr_auc"
+
+  # Early stopping
+  early_stopping_patience: 7
+  early_stopping_metric: "val_pr_auc"
+  early_stopping_mode: "max"
+
+  # Metrics tracking
+  track_metrics: ["accuracy", "precision", "recall", "f1", "auc_roc", "pr_auc"]
+  metric_average: "binary"
+
+augmentation:
+  rotation_range: [-10, 10]
+  color_jitter_brightness: 0.2
+  color_jitter_contrast: 0.2
+  color_jitter_saturation: 0.1
+  horizontal_flip_prob: 0.0
+  resize_size: [224, 224]
+
+xai:
+  gradcam:
+    upsampling_mode: "bicubic"
+  integrated_gradients:
+    n_steps: 50
+    baseline_type: "pad_token"
+  visualization:
+    positive_color: "green"
+    negative_color: "red"
+    heatmap_alpha: 0.4
+
+deployment:
+  gradio:
+    title: "ViralScope AI - YouTube Viral Potential Predictor"
+    description: "Upload your thumbnail and enter your title to predict viral potential."
+    thumbnail_label: "Video Thumbnail"
+    title_label: "Video Title"
+    submit_button: "Analyze"
+
+paths:
+  checkpoints: "models/checkpoints"
+  best_model: "models/best_model.pt"
+  training_log: "models/training_log.csv"
+  results: "results/"

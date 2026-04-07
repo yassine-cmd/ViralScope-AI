@@ -1,2 +1,50 @@
 # Agent files (spec, tasks, prompts — not for GitHub)
-.agents/
+agents/
+
+# Virtual environment
+venv/
+.env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# PyTorch (model weights - large files, regenerate from training)
+*.pt
+*.pth
+*.ckpt
+models/checkpoints/*
+!models/checkpoints/.gitkeep
+
+# Data (large files)
+data/raw/thumbnails/*.jpg
+data/tensors/*.pt
+data/splits/*.pt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results (keep directory, not files)
+results/*
+!results/.gitkeep
+
+# Logs
+*.log
+models/training_log.csv
+
+# Environment variables
+.env
+*.env
