@@ -1,0 +1,25 @@
+{
+  "train": {
+    "split": "train",
+    "num_videos": 700,
+    "num_channels": 35,
+    "viral_count": 174,
+    "viral_pct": 0.24857142857142858
+  },
+  "val": {
+    "split": "val",
+    "num_videos": 140,
+    "num_channels": 7,
+    "viral_count": 31,
+    "viral_pct": 0.22142857142857142
+  },
+  "test": {
+    "split": "test",
+    "num_videos": 160,
+    "num_channels": 8,
+    "viral_count": 39,
+    "viral_pct": 0.24375
+  },
+  "total_videos": 1000,
+  "total_channels": 50
+}
