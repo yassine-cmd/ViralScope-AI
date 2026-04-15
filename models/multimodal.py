@@ -27,11 +27,20 @@ class ViralScopeModel(nn.Module):
         )
     
     def forward(self, images, input_ids, attention_mask):
+        """
+        Args:
+            images: shape (batch, 3, 224, 224)
+            input_ids: shape (batch, seq_len)
+            attention_mask: shape (batch, seq_len)
+        Returns:
+            logits: shape (batch,)
+        """
         cv_features = self.cv_extractor(images)
         nlp_features = self.nlp_extractor(input_ids, attention_mask)
         logits = self.fusion(cv_features, nlp_features)
         return logits
     
     def predict_proba(self, images, input_ids, attention_mask):
+        """Returns probability instead of logit."""
         logits = self.forward(images, input_ids, attention_mask)
         return torch.sigmoid(logits)

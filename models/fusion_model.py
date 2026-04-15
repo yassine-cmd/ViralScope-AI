@@ -23,5 +23,12 @@ class FusionMLP(nn.Module):
         self.network = nn.Sequential(*layers)
 
     def forward(self, cv_features, nlp_features):
+        """
+        Args:
+            cv_features: shape (batch, 1280)
+            nlp_features: shape (batch, 768)
+        Returns:
+            logits: shape (batch,)
+        """
         combined = torch.cat([cv_features, nlp_features], dim=1)
         return self.network(combined).squeeze(-1)
