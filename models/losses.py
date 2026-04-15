@@ -11,6 +11,13 @@ class FocalLoss(nn.Module):
         self.reduction = reduction
 
     def forward(self, logits, targets):
+        """
+        Args:
+            logits: raw model outputs, shape (batch,) for binary
+            targets: binary labels, shape (batch,)
+        Returns:
+            loss: scalar
+        """
         probs = torch.sigmoid(logits)
         ce_loss = F.binary_cross_entropy_with_logits(logits, targets, reduction='none')
 
