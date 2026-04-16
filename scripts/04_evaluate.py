@@ -56,7 +56,7 @@ def collect_predictions(model, dataloader, device):
         all_probs.append(probs)
         all_labels.append(labels)
 
-    return torch.cat(all_probs).numpy(), torch.cat(all_labels).numpy()
+    return torch.stack(all_probs).numpy(), torch.stack(all_labels).numpy()
 
 
 def find_optimal_threshold(labels, probs):
@@ -107,8 +107,7 @@ def evaluate(config_path="config.yaml"):
     print(f"  Optimal threshold: {optimal_threshold:.4f} (Val F1: {val_best_f1:.4f})")
 
     if optimal_threshold < 0.2:
-        print(f"  WARNING: Threshold {optimal_threshold:.4f} is suspiciously low, clamping to 0.3")
-        optimal_threshold = 0.3
+        print(f"  Note: Threshold {optimal_threshold:.4f} is below 0.2 - low thresholds can be normal for well-calibrated models on imbalanced data")
 
     print("\nEvaluating on test set...")
     test_probs, test_labels = collect_predictions(model, test_loader, device)

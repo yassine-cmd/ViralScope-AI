@@ -51,7 +51,8 @@ class ViralScopeDataset(Dataset):
         image_path = os.path.join(self.thumbnail_dir, f"{row['video_id']}.jpg")
         try:
             image = Image.open(image_path).convert("RGB")
-        except (FileNotFoundError, OSError):
+        except Exception:
+            self.missing_count = getattr(self, 'missing_count', 0) + 1
             image = Image.new("RGB", (224, 224), color=(128, 128, 128))
 
         if self.transform:

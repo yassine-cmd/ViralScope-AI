@@ -30,31 +30,11 @@ training:
   epochs: 50
 
   # Learning rates
+  lr_head: 1e-3
   lr_backbone_cv: 1e-5
   lr_backbone_nlp: 1e-5
-  lr_head: 1e-3
-
-model:
-  cv:
-    backbone: "mobilenet_v2"
-    pretrained: true
-    weights: "DEFAULT"  # torchvision default weights
-    feature_dim: 1280
-    freeze_backbone: true
-
-  nlp:
-    checkpoint: "distilbert-base-uncased"
-    max_seq_length: 64
-    feature_dim: 768
-    freeze_backbone: true
-
-  fusion:
-    hidden_layers: [512, 128]
-    dropout: 0.4
-    activation: "ReLU"
 
   # Optimizer
-  optimizer: "AdamW"
   weight_decay: 1e-4
   betas: [0.9, 0.999]
 
@@ -87,6 +67,25 @@ model:
   # Metrics tracking
   track_metrics: ["accuracy", "precision", "recall", "f1", "auc_roc", "pr_auc"]
   metric_average: "binary"
+
+model:
+  cv:
+    backbone: "mobilenet_v2"
+    pretrained: true
+    weights: "DEFAULT"  # torchvision default weights
+    feature_dim: 1280
+    freeze_backbone: true
+
+  nlp:
+    checkpoint: "distilbert-base-uncased"
+    max_seq_length: 64
+    feature_dim: 768
+    freeze_backbone: true
+
+  fusion:
+    hidden_layers: [512, 128]
+    dropout: 0.4
+    activation: "ReLU"
 
 augmentation:
   rotation_range: [-10, 10]
