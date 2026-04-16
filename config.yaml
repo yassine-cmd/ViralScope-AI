@@ -30,18 +30,18 @@ training:
   epochs: 50
 
   # Learning rates
-  lr_head: 1e-3
-  lr_backbone_cv: 1e-5
-  lr_backbone_nlp: 1e-5
+  lr_head: 0.001
+  lr_backbone_cv: 0.00001
+  lr_backbone_nlp: 0.00001
 
   # Optimizer
-  weight_decay: 1e-4
+  weight_decay: 0.0001
   betas: [0.9, 0.999]
 
   # Loss
   loss_function: "FocalLoss"
   focal_loss_gamma: 2.0
-  focal_loss_alpha: null  # auto-computed from class distribution
+  focal_loss_alpha: 0.5  # auto-computed from class distribution
 
   # Scheduler
   scheduler: "ReduceLROnPlateau"
