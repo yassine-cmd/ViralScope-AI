@@ -29,6 +29,11 @@ training:
   num_workers: 2  # DataLoader workers for parallel data loading
   epochs: 50
 
+  # Learning rates
+  lr_backbone_cv: 1e-5
+  lr_backbone_nlp: 1e-5
+  lr_head: 1e-3
+
 model:
   cv:
     backbone: "mobilenet_v2"
@@ -47,11 +52,6 @@ model:
     hidden_layers: [512, 128]
     dropout: 0.4
     activation: "ReLU"
-
-  # Learning rates
-  lr_backbone_cv: 1e-5
-  lr_backbone_nlp: 1e-5
-  lr_head: 1e-3
 
   # Optimizer
   optimizer: "AdamW"
@@ -73,6 +73,16 @@ model:
   early_stopping_patience: 7
   early_stopping_metric: "val_pr_auc"
   early_stopping_mode: "max"
+
+  # Gradient clipping
+  gradient_clip_norm: 1.0
+
+  # Two-stage training
+  two_stage:
+    enabled: true
+    head_warmup_epochs: 5
+    unfreeze_cv: true
+    unfreeze_nlp: true
 
   # Metrics tracking
   track_metrics: ["accuracy", "precision", "recall", "f1", "auc_roc", "pr_auc"]
