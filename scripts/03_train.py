@@ -10,16 +10,14 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.optim import AdamW
-from torch.optim.lr_scheduler import ReduceLROnPlateau
+from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
 
 from torchvision import transforms
-from transformers import AutoTokenizer
+from transformers import CLIPTokenizer
 
 from models.multimodal import ViralScopeModel
-from models.losses import FocalLoss
 from data.dataset import (
     ViralScopeDataset,
-    DummyViralScopeDataset,
     build_train_transform,
     build_eval_transform,
     build_weighted_sampler,
@@ -145,51 +143,64 @@ def unfreeze_backbone(model, backbone_name, lr, optimizer):
     print(f"  Unfroze {backbone_name}: {trainable:,} params at lr={lr}")
 
 
-def build_optimizer(model, config):
-    """Build AdamW optimizer with only trainable (head) parameters initially."""
+def build_optimizer(model, config, stage="head"):
+    """Build AdamW optimizer with appropriate LR for each stage.
+
+    Stage 'head':  Only fusion MLP is trainable, lr = lr_head (1e-3)
+    Stage 'full':  After unfreezing, head lr drops to lr_head_stage2 (1e-4),
+                   backbones get lr_backbone (5e-6)
+    """
     training_cfg = config["training"]
-    head_params = [p for p in model.parameters() if p.requires_grad]
+    head_params = [p for p in model.fusion.parameters() if p.requires_grad]
+
+    if stage == "head":
+        lr = training_cfg["lr_head"]
+    else:
+        lr = training_cfg.get("lr_head_stage2", training_cfg["lr_head"] * 0.1)
+
     optimizer = AdamW(
         head_params,
-        lr=training_cfg["lr_head"],
+        lr=lr,
         weight_decay=training_cfg["weight_decay"],
         betas=tuple(training_cfg.get("betas", [0.9, 0.999])),
     )
     return optimizer
 
 
-def build_criterion(config, train_labels=None):
-    """Build loss function, auto-computing alpha from class distribution if needed."""
+def build_scheduler(optimizer, config):
+    """Build CosineAnnealingWarmRestarts scheduler."""
     training_cfg = config["training"]
+    scheduler = CosineAnnealingWarmRestarts(
+        optimizer,
+        T_0=training_cfg.get("scheduler_T_0", 10),
+        T_mult=training_cfg.get("scheduler_T_mult", 2),
+        eta_min=training_cfg.get("scheduler_eta_min", 1e-6),
+    )
+    return scheduler
 
-    if training_cfg["loss_function"] == "FocalLoss":
-        alpha = training_cfg.get("focal_loss_alpha")
 
-        if alpha is None and train_labels is not None:
-            n_pos = (train_labels == 1).sum()
-            n_neg = (train_labels == 0).sum()
-            total = n_pos + n_neg
-            alpha_neg = total / (2.0 * n_neg) if n_neg > 0 else 1.0
-            alpha_pos = total / (2.0 * n_pos) if n_pos > 0 else 1.0
-            alpha = [float(alpha_neg), float(alpha_pos)]
-            print(f"  Auto-computed FocalLoss alpha: {alpha}")
-        elif alpha is not None and not isinstance(alpha, list):
-            alpha = [1.0 - alpha, alpha]
+def build_criterion(config):
+    """Build loss function — BCEWithLogitsLoss by default.
 
-        if alpha is not None:
-            alpha = torch.tensor(alpha, dtype=torch.float32)
+    WeightedRandomSampler handles class imbalance,
+    so we do NOT add class weights to the loss.
+    """
+    training_cfg = config["training"]
+    loss_name = training_cfg.get("loss_function", "BCEWithLogitsLoss")
 
-        criterion = FocalLoss(
-            alpha=alpha,
+    if loss_name == "BCEWithLogitsLoss":
+        return nn.BCEWithLogitsLoss()
+    elif loss_name == "FocalLoss":
+        from models.losses import FocalLoss
+        return FocalLoss(
             gamma=training_cfg.get("focal_loss_gamma", 2.0),
+            alpha=None,  # No alpha — sampler handles imbalance
         )
     else:
-        criterion = nn.BCEWithLogitsLoss()
-
-    return criterion
+        return nn.BCEWithLogitsLoss()
 
 
-def main(config_path="config.yaml", epochs=None, batch_size=None, use_dummy_data=False):
+def main(config_path="config.yaml", epochs=None, batch_size=None):
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
 
@@ -208,59 +219,47 @@ def main(config_path="config.yaml", epochs=None, batch_size=None, use_dummy_data
     clip_norm = training_cfg.get("gradient_clip_norm", 1.0)
     two_stage = training_cfg.get("two_stage", {})
 
-    print("Loading model...")
+    print("Loading model (CLIP backbone)...")
     model = ViralScopeModel(config).to(device)
 
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"  Total params:     {total_params:,}")
-    print(f"  Trainable params: {trainable_params:,} (head only)")
+    print(f"  Trainable params: {trainable_params:,} (fusion head only)")
 
-    if use_dummy_data:
-        print("Using dummy data for training...")
-        train_dataset = DummyViralScopeDataset(num_samples=200)
-        val_dataset = DummyViralScopeDataset(num_samples=50)
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-        val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
-        train_labels = train_dataset.get_labels()
-    else:
-        print("Loading datasets...")
-        tokenizer = AutoTokenizer.from_pretrained(config["model"]["nlp"]["checkpoint"])
-        train_transform = build_train_transform(config)
-        eval_transform = build_eval_transform(config)
+    print("Loading datasets...")
+    clip_checkpoint = config["model"]["clip"]["checkpoint"]
+    tokenizer = CLIPTokenizer.from_pretrained(clip_checkpoint)
+    train_transform = build_train_transform(config)
+    eval_transform = build_eval_transform(config)
 
-        train_dataset = ViralScopeDataset("train", train_transform, tokenizer, config)
-        val_dataset = ViralScopeDataset("val", eval_transform, tokenizer, config)
+    train_dataset = ViralScopeDataset("train", train_transform, tokenizer, config)
+    val_dataset = ViralScopeDataset("val", eval_transform, tokenizer, config)
 
-        train_sampler = build_weighted_sampler(train_dataset)
+    print(f"  Train samples: {len(train_dataset)}")
+    print(f"  Val samples:   {len(val_dataset)}")
 
-        train_loader = DataLoader(
-            train_dataset,
-            batch_size=batch_size,
-            sampler=train_sampler,
-            num_workers=training_cfg["num_workers"],
-            pin_memory=torch.cuda.is_available(),
-            drop_last=True,
-        )
-        val_loader = DataLoader(
-            val_dataset,
-            batch_size=batch_size,
-            shuffle=False,
-            num_workers=training_cfg["num_workers"],
-            pin_memory=torch.cuda.is_available(),
-        )
-        train_labels = train_dataset.get_labels()
+    train_sampler = build_weighted_sampler(train_dataset)
 
-    criterion = build_criterion(config, torch.from_numpy(train_labels.astype(np.float32)))
-
-    optimizer = build_optimizer(model, config)
-
-    scheduler = ReduceLROnPlateau(
-        optimizer,
-        mode="max",
-        factor=training_cfg["scheduler_factor"],
-        patience=training_cfg["scheduler_patience"],
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=batch_size,
+        sampler=train_sampler,
+        num_workers=training_cfg["num_workers"],
+        pin_memory=torch.cuda.is_available(),
+        drop_last=True,
     )
+    val_loader = DataLoader(
+        val_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=training_cfg["num_workers"],
+        pin_memory=torch.cuda.is_available(),
+    )
+
+    criterion = build_criterion(config)
+    optimizer = build_optimizer(model, config, stage="head")
+    scheduler = build_scheduler(optimizer, config)
 
     checkpoint_dir = config["paths"]["checkpoints"]
     os.makedirs(checkpoint_dir, exist_ok=True)
@@ -276,41 +275,49 @@ def main(config_path="config.yaml", epochs=None, batch_size=None, use_dummy_data
     head_warmup_epochs = two_stage.get("head_warmup_epochs", epochs) if two_stage.get("enabled") else epochs
     backbones_unfrozen = False
 
-    print(f"\nStarting training for {epochs} epochs...")
+    print(f"\n{'='*100}")
+    print(f"Starting {epochs} epochs of two-stage training...")
     print(f"  Stage 1: Head warmup for {head_warmup_epochs} epochs (backbones frozen)")
     if two_stage.get("enabled"):
         print(f"  Stage 2: Full fine-tuning (backbones unfrozen at epoch {head_warmup_epochs + 1})")
+    print(f"{'='*100}")
     print()
-    print(f"{'Epoch':>5} | {'Stage':>7} | {'Train Loss':>10} | {'Train Acc':>8} | {'Val Loss':>10} | {'Val Acc':>8} | {'Val F1':>8} | {'Val PR-AUC':>10}")
-    print("-" * 90)
+    print(f"{'Epoch':>5} | {'Stage':>7} | {'Train Loss':>10} | {'Train Acc':>8} | "
+          f"{'Val Loss':>10} | {'Val Acc':>8} | {'Val F1':>8} | {'Val PR-AUC':>10}")
+    print("-" * 100)
 
     for epoch in range(epochs):
+        # ------- Stage 2: Unfreeze backbones -------
         if two_stage.get("enabled") and epoch == head_warmup_epochs and not backbones_unfrozen:
-            print(f"\n{'='*90}")
+            print(f"\n{'='*100}")
             print(f"  STAGE 2: Unfreezing backbones at epoch {epoch + 1}")
-            print(f"{'='*90}")
+            print(f"{'='*100}")
+
+            # Rebuild optimizer with staggered LRs:
+            #   fusion head → lr_head_stage2 (1e-4)
+            #   backbones   → lr_backbone    (5e-6)
+            optimizer = build_optimizer(model, config, stage="full")
+
+            backbone_lr = training_cfg["lr_backbone"]
             if two_stage.get("unfreeze_cv", True):
-                unfreeze_backbone(model, "cv_extractor", training_cfg["lr_backbone_cv"], optimizer)
+                unfreeze_backbone(model, "cv_extractor", backbone_lr, optimizer)
             if two_stage.get("unfreeze_nlp", True):
-                unfreeze_backbone(model, "nlp_extractor", training_cfg["lr_backbone_nlp"], optimizer)
+                unfreeze_backbone(model, "nlp_extractor", backbone_lr, optimizer)
             backbones_unfrozen = True
 
             trainable_now = sum(p.numel() for p in model.parameters() if p.requires_grad)
             print(f"  Trainable params now: {trainable_now:,}")
 
+            # Reset early stopping and scheduler for stage 2
             early_stopping_counter = 0
-            scheduler = ReduceLROnPlateau(
-                optimizer, mode="max",
-                factor=training_cfg["scheduler_factor"],
-                patience=training_cfg["scheduler_patience"],
-            )
+            scheduler = build_scheduler(optimizer, config)
             print()
 
         stage = "head" if not backbones_unfrozen else "full"
         train_metrics = train_epoch(model, train_loader, criterion, optimizer, device, clip_norm)
         val_metrics = validate_epoch(model, val_loader, criterion, device)
 
-        scheduler.step(val_metrics["pr_auc"])
+        scheduler.step(epoch)
 
         log_entry = {
             "epoch": epoch + 1,
@@ -367,7 +374,6 @@ if __name__ == "__main__":
     parser.add_argument("--config", type=str, default="config.yaml", help="Path to config file")
     parser.add_argument("--epochs", type=int, default=None, help="Number of epochs")
     parser.add_argument("--batch-size", type=int, default=None, help="Batch size")
-    parser.add_argument("--dummy-data", action="store_true", help="Use dummy data for testing")
     args = parser.parse_args()
 
-    main(args.config, args.epochs, args.batch_size, args.dummy_data)
+    main(args.config, args.epochs, args.batch_size)

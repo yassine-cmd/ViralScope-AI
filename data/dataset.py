@@ -13,7 +13,7 @@ class ViralScopeDataset(Dataset):
         Args:
             split: "train", "val", or "test"
             transform: torchvision transforms for images
-            tokenizer: HuggingFace tokenizer
+            tokenizer: CLIPTokenizer instance
             config: config dict
         """
         self.config = config or {}
@@ -26,7 +26,7 @@ class ViralScopeDataset(Dataset):
 
         self.data_dir = self.config.get("data", {}).get("processed_dir", "data/processed")
         self.splits_dir = self.config.get("data", {}).get("splits_dir", "data/splits")
-        self.max_seq_length = self.config.get("model", {}).get("nlp", {}).get("max_seq_length", 64)
+        self.max_seq_length = self.config.get("model", {}).get("clip", {}).get("max_seq_length", 77)
 
         self.df = self._load_split()
 
@@ -40,6 +40,15 @@ class ViralScopeDataset(Dataset):
         else:
             raise FileNotFoundError(f"Split indices not found: {split_file}")
 
+        # Verify thumbnails exist (upstream should have filtered, but safety check)
+        valid_mask = df["video_id"].apply(
+            lambda vid: os.path.exists(os.path.join(self.thumbnail_dir, f"{vid}.jpg"))
+        )
+        n_missing = (~valid_mask).sum()
+        if n_missing > 0:
+            print(f"  [{self.split}] Dropped {n_missing}/{len(df)} rows with missing thumbnails")
+        df = df[valid_mask].reset_index(drop=True)
+
         return df
 
     def __len__(self):
@@ -48,16 +57,14 @@ class ViralScopeDataset(Dataset):
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
 
+        # Load thumbnail — all should exist after upstream filtering
         image_path = os.path.join(self.thumbnail_dir, f"{row['video_id']}.jpg")
-        try:
-            image = Image.open(image_path).convert("RGB")
-        except Exception:
-            self.missing_count = getattr(self, 'missing_count', 0) + 1
-            image = Image.new("RGB", (224, 224), color=(128, 128, 128))
+        image = Image.open(image_path).convert("RGB")
 
         if self.transform:
             image = self.transform(image)
 
+        # Tokenize title with CLIP tokenizer
         title = str(row.get("title", "Untitled"))
         if self.tokenizer:
             encoding = self.tokenizer(
@@ -65,7 +72,7 @@ class ViralScopeDataset(Dataset):
                 truncation=True,
                 max_length=self.max_seq_length,
                 padding="max_length",
-                return_tensors="pt"
+                return_tensors="pt",
             )
             input_ids = encoding["input_ids"].squeeze()
             attention_mask = encoding["attention_mask"].squeeze()
@@ -79,7 +86,7 @@ class ViralScopeDataset(Dataset):
             "image": image,
             "input_ids": input_ids,
             "attention_mask": attention_mask,
-            "label": label
+            "label": label,
         }
 
     def get_labels(self):
@@ -88,9 +95,12 @@ class ViralScopeDataset(Dataset):
 
 
 def build_train_transform(config):
-    """Build augmented transform for training images."""
+    """Build augmented transform for training images using CLIP normalization."""
     aug = config.get("augmentation", {})
     size = tuple(aug.get("resize_size", [224, 224]))
+    mean = aug.get("normalize_mean", [0.48145466, 0.4578275, 0.40821073])
+    std = aug.get("normalize_std", [0.26862954, 0.26130258, 0.27577711])
+
     return transforms.Compose([
         transforms.Resize(size),
         transforms.RandomRotation(degrees=aug.get("rotation_range", [-10, 10])[1]),
@@ -101,18 +111,21 @@ def build_train_transform(config):
         ),
         transforms.RandomHorizontalFlip(p=aug.get("horizontal_flip_prob", 0.0)),
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        transforms.Normalize(mean=mean, std=std),
     ])
 
 
 def build_eval_transform(config):
-    """Build clean transform for validation/test images (no augmentation)."""
+    """Build clean transform for validation/test images (no augmentation, CLIP normalization)."""
     aug = config.get("augmentation", {})
     size = tuple(aug.get("resize_size", [224, 224]))
+    mean = aug.get("normalize_mean", [0.48145466, 0.4578275, 0.40821073])
+    std = aug.get("normalize_std", [0.26862954, 0.26130258, 0.27577711])
+
     return transforms.Compose([
         transforms.Resize(size),
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        transforms.Normalize(mean=mean, std=std),
     ])
 
 
@@ -128,12 +141,13 @@ def build_weighted_sampler(dataset):
 
 def create_dataloaders(config, batch_size=None, num_workers=None):
     """Create train/val/test dataloaders with proper transforms and class balancing."""
-    from transformers import AutoTokenizer
+    from transformers import CLIPTokenizer
 
+    clip_cfg = config.get("model", {}).get("clip", {})
     batch_size = batch_size or config.get("training", {}).get("batch_size", 32)
     num_workers = num_workers or config.get("training", {}).get("num_workers", 2)
 
-    tokenizer = AutoTokenizer.from_pretrained(config["model"]["nlp"]["checkpoint"])
+    tokenizer = CLIPTokenizer.from_pretrained(clip_cfg.get("checkpoint", "openai/clip-vit-base-patch32"))
     train_transform = build_train_transform(config)
     eval_transform = build_eval_transform(config)
 
@@ -167,23 +181,3 @@ def create_dataloaders(config, batch_size=None, num_workers=None):
     )
 
     return train_loader, val_loader, test_loader
-
-
-class DummyViralScopeDataset(Dataset):
-    def __init__(self, num_samples=100, seq_len=64):
-        self.num_samples = num_samples
-        self.seq_len = seq_len
-
-    def __len__(self):
-        return self.num_samples
-
-    def __getitem__(self, idx):
-        return {
-            "image": torch.randn(3, 224, 224),
-            "input_ids": torch.randint(0, 30522, (self.seq_len,)),
-            "attention_mask": torch.ones(self.seq_len, dtype=torch.long),
-            "label": torch.tensor(idx % 2, dtype=torch.float32)
-        }
-
-    def get_labels(self):
-        return np.array([i % 2 for i in range(self.num_samples)])
