@@ -149,6 +149,7 @@ def create_dataloaders(config, batch_size=None, num_workers=None):
         sampler=train_sampler,
         num_workers=num_workers,
         pin_memory=torch.cuda.is_available(),
+        drop_last=True,
     )
     val_loader = DataLoader(
         val_ds,
