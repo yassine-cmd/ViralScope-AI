@@ -25,32 +25,31 @@ data:
   thumbnail_rate_limit: 10  # requests per second (YouTube CDN safe limit)
 
 training:
-  batch_size: 64
+  batch_size: 32
   num_workers: 2  # DataLoader workers for parallel data loading
   epochs: 50
 
-  # Learning rates
-  lr_head: 0.001
-  lr_backbone_cv: 0.00001
-  lr_backbone_nlp: 0.00001
+  # Learning rates (staggered for CLIP fine-tuning)
+  lr_head: 0.001          # Fusion MLP head
+  lr_head_stage2: 0.0001  # Fusion MLP after unfreezing backbones
+  lr_backbone_cv: 0.000005   # CLIP Vision backbone
+  lr_backbone_nlp: 0.000005  # CLIP Text backbone
 
   # Optimizer
   weight_decay: 0.0001
   betas: [0.9, 0.999]
 
-  # Loss
-  loss_function: "FocalLoss"
-  focal_loss_gamma: 2.0
-  focal_loss_alpha: 0.5  # auto-computed from class distribution
+  # Loss — use BCEWithLogitsLoss (WeightedRandomSampler handles class imbalance)
+  loss_function: "BCEWithLogitsLoss"
 
-  # Scheduler
-  scheduler: "ReduceLROnPlateau"
-  scheduler_patience: 3
-  scheduler_factor: 0.5
-  scheduler_metric: "val_pr_auc"
+  # Scheduler — CosineAnnealingWarmRestarts for smooth fine-tuning
+  scheduler: "CosineAnnealingWarmRestarts"
+  scheduler_T_0: 10       # First restart period (epochs)
+  scheduler_T_mult: 2     # Multiply period after each restart
+  scheduler_eta_min: 0.000001
 
   # Early stopping
-  early_stopping_patience: 7
+  early_stopping_patience: 10
   early_stopping_metric: "val_pr_auc"
   early_stopping_mode: "max"
 
@@ -69,23 +68,18 @@ training:
   metric_average: "binary"
 
 model:
-  cv:
-    backbone: "mobilenet_v2"
-    pretrained: true
-    weights: "DEFAULT"  # torchvision default weights
-    feature_dim: 1280
-    freeze_backbone: true
-
-  nlp:
-    checkpoint: "distilbert-base-uncased"
-    max_seq_length: 64
-    feature_dim: 768
+  # Unified CLIP backbone for both vision and text
+  clip:
+    checkpoint: "openai/clip-vit-base-patch32"
+    feature_dim: 512
+    max_seq_length: 77   # CLIP's native context length
     freeze_backbone: true
 
   fusion:
-    hidden_layers: [512, 128]
-    dropout: 0.4
-    activation: "ReLU"
+    # Input = 4 * 512 (img, txt, diff, prod) + 1 (cos_sim) = 2049
+    hidden_layers: [256, 64]
+    dropout: 0.2
+    activation: "GELU"
 
 augmentation:
   rotation_range: [-10, 10]
@@ -94,6 +88,9 @@ augmentation:
   color_jitter_saturation: 0.1
   horizontal_flip_prob: 0.0
   resize_size: [224, 224]
+  # CLIP normalization (NOT ImageNet)
+  normalize_mean: [0.48145466, 0.4578275, 0.40821073]
+  normalize_std: [0.26862954, 0.26130258, 0.27577711]
 
 xai:
   gradcam:

@@ -23,7 +23,8 @@ models/checkpoints/*
 !models/checkpoints/.gitkeep
 
 # Data (large files)
-data/raw/thumbnails/*.jpg
+data/
+data/raw/thumbnails/
 data/tensors/*.pt
 data/splits/*.pt
 
