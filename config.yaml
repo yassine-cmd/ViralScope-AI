@@ -29,6 +29,45 @@ training:
   num_workers: 2  # DataLoader workers for parallel data loading
   epochs: 50
 
+  # Learning rates
+  lr_head: 0.001
+  lr_backbone_cv: 0.00001
+  lr_backbone_nlp: 0.00001
+
+  # Optimizer
+  weight_decay: 0.0001
+  betas: [0.9, 0.999]
+
+  # Loss
+  loss_function: "FocalLoss"
+  focal_loss_gamma: 2.0
+  focal_loss_alpha: 0.5  # auto-computed from class distribution
+
+  # Scheduler
+  scheduler: "ReduceLROnPlateau"
+  scheduler_patience: 3
+  scheduler_factor: 0.5
+  scheduler_metric: "val_pr_auc"
+
+  # Early stopping
+  early_stopping_patience: 7
+  early_stopping_metric: "val_pr_auc"
+  early_stopping_mode: "max"
+
+  # Gradient clipping
+  gradient_clip_norm: 1.0
+
+  # Two-stage training
+  two_stage:
+    enabled: true
+    head_warmup_epochs: 5
+    unfreeze_cv: true
+    unfreeze_nlp: true
+
+  # Metrics tracking
+  track_metrics: ["accuracy", "precision", "recall", "f1", "auc_roc", "pr_auc"]
+  metric_average: "binary"
+
 model:
   cv:
     backbone: "mobilenet_v2"
@@ -47,36 +86,6 @@ model:
     hidden_layers: [512, 128]
     dropout: 0.4
     activation: "ReLU"
-
-  # Learning rates
-  lr_backbone_cv: 1e-5
-  lr_backbone_nlp: 1e-5
-  lr_head: 1e-3
-
-  # Optimizer
-  optimizer: "AdamW"
-  weight_decay: 1e-4
-  betas: [0.9, 0.999]
-
-  # Loss
-  loss_function: "FocalLoss"
-  focal_loss_gamma: 2.0
-  focal_loss_alpha: null  # auto-computed from class distribution
-
-  # Scheduler
-  scheduler: "ReduceLROnPlateau"
-  scheduler_patience: 3
-  scheduler_factor: 0.5
-  scheduler_metric: "val_pr_auc"
-
-  # Early stopping
-  early_stopping_patience: 7
-  early_stopping_metric: "val_pr_auc"
-  early_stopping_mode: "max"
-
-  # Metrics tracking
-  track_metrics: ["accuracy", "precision", "recall", "f1", "auc_roc", "pr_auc"]
-  metric_average: "binary"
 
 augmentation:
   rotation_range: [-10, 10]
