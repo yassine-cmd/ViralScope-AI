@@ -240,6 +240,7 @@ def main(config_path="config.yaml", epochs=None, batch_size=None, use_dummy_data
             sampler=train_sampler,
             num_workers=training_cfg["num_workers"],
             pin_memory=torch.cuda.is_available(),
+            drop_last=True,
         )
         val_loader = DataLoader(
             val_dataset,
