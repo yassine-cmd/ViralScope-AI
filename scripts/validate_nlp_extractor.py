@@ -1,9 +1,11 @@
 """
-Task 3.2: Validate NLP Extractor with Real Data
+Task 3.2: Validate NLP Extractor (CLIP Text) with Real Data
 """
 import os
 import sys
+import yaml
 import torch
+from transformers import CLIPModel, CLIPTokenizer
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from models.nlp_extractor import NLPExtractor
@@ -11,84 +13,108 @@ from models.nlp_extractor import NLPExtractor
 
 def validate_nlp_extractor():
     print("=" * 60)
-    print("Task 3.2: Validate NLP Extractor with Real Data")
+    print("Task 3.2: Validate NLP Extractor (CLIP Text) with Real Data")
     print("=" * 60)
-    
+
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Device: {device}")
-    
-    # Load pre-tokenized tensors
-    input_ids_path = 'data/tensors/input_ids.pt'
-    attention_masks_path = 'data/tensors/attention_masks.pt'
-    train_indices_path = 'data/splits/train_indices.pt'
-    
-    for path in [input_ids_path, attention_masks_path, train_indices_path]:
-        if not os.path.exists(path):
-            print(f"[ERROR] Required file not found: {path}")
-            return False
-    
-    print("\nLoading pre-tokenized tensors...")
-    input_ids = torch.load(input_ids_path, weights_only=True)
-    attention_masks = torch.load(attention_masks_path, weights_only=True)
-    train_indices = torch.load(train_indices_path)
-    
-    print(f"Input IDs shape: {input_ids.shape}")
-    print(f"Attention Masks shape: {attention_masks.shape}")
-    print(f"Training indices: {len(train_indices)}")
-    
-    # Initialize NLP extractor
-    print("\nInitializing NLP Extractor (DistilBERT)...")
-    model = NLPExtractor(checkpoint="distilbert-base-uncased", freeze=True)
+
+    # Load config
+    with open('config.yaml', 'r') as f:
+        config = yaml.safe_load(f)
+
+    clip_cfg = config['model']['clip']
+    checkpoint = clip_cfg['checkpoint']
+    max_seq_length = clip_cfg.get('max_seq_length', 77)
+
+    # Initialize NLP extractor (CLIP Text)
+    print(f"\nInitializing NLP Extractor (CLIP Text: {checkpoint})...")
+    clip_model = CLIPModel.from_pretrained(checkpoint)
+    model = NLPExtractor(
+        text_model=clip_model.text_model,
+        text_projection=clip_model.text_projection,
+        freeze=True,
+    )
     model = model.to(device)
     model.eval()
-    
-    # Get first 64 training samples
-    print("\nExtracting features from first 64 training samples...")
-    batch_input_ids = input_ids[train_indices[:64]].to(device)
-    batch_attention_masks = attention_masks[train_indices[:64]].to(device)
-    
+
+    # Tokenize sample titles
+    print("\nTokenizing sample titles...")
+    tokenizer = CLIPTokenizer.from_pretrained(checkpoint)
+
+    sample_titles = [
+        "How I Built $1,000,000 Business in 30 Days",
+        "I Tried 100 Days of EXTREME CHALLENGE",
+        "WORLD RECORD: Fastest Time to Beat All Bosses",
+        "Simple cooking tutorial for beginners",
+        "My morning routine 2024 (nothing special)",
+    ]
+
+    encoded = tokenizer(
+        sample_titles,
+        max_length=max_seq_length,
+        padding='max_length',
+        truncation=True,
+        return_tensors='pt',
+    )
+
+    batch_input_ids = encoded['input_ids'].to(device)
+    batch_attention_masks = encoded['attention_mask'].to(device)
+
     print(f"Batch input_ids shape: {batch_input_ids.shape}")
     print(f"Batch attention_masks shape: {batch_attention_masks.shape}")
-    
+
     # Forward pass
     print("\nRunning forward pass...")
     with torch.no_grad():
         features = model(batch_input_ids, batch_attention_masks)
-    
+
     # Validate output
+    feature_dim = clip_cfg.get('feature_dim', 512)
     print(f"Output shape: {features.shape}")
-    expected_shape = (64, 768)
-    
+    expected_shape = (len(sample_titles), feature_dim)
+
     if features.shape != expected_shape:
         print(f"[ERROR] Expected shape {expected_shape}, got {features.shape}")
         return False
-    
+
+    # Check L2 normalization
+    norms = features.norm(dim=1)
+    print(f"Feature norms (should be ~1.0): mean={norms.mean():.4f}, std={norms.std():.6f}")
+
     # Check for NaN/Inf
     if torch.isnan(features).any():
         print("[ERROR] Output contains NaN values")
         return False
-    
+
     if torch.isinf(features).any():
         print("[ERROR] Output contains Inf values")
         return False
-    
-    # Check variance
+
+    # Check variance (different titles should produce different embeddings)
     variance = features.var().item()
     print(f"Feature variance: {variance:.4f}")
-    if variance < 0.01:
+    if variance < 0.001:
         print("[WARNING] Very low variance - model may be outputting constants")
-    
+
+    # Compute pairwise cosine similarities
+    print("\nPairwise cosine similarities:")
+    for i in range(len(sample_titles)):
+        for j in range(i + 1, len(sample_titles)):
+            sim = (features[i] * features[j]).sum().item()
+            print(f"  '{sample_titles[i][:40]}...' vs '{sample_titles[j][:40]}...': {sim:.4f}")
+
     # Save validation checkpoint
     checkpoint_path = 'models/checkpoints/nlp_extractor_validation.pt'
     os.makedirs(os.path.dirname(checkpoint_path), exist_ok=True)
     torch.save({
         'features': features.cpu(),
-        'train_indices': train_indices[:64]
+        'titles': sample_titles,
     }, checkpoint_path)
     print(f"\nValidation checkpoint saved: {checkpoint_path}")
-    
+
     print("\n" + "=" * 60)
-    print("Task 3.2: NLP Extractor Validation PASSED")
+    print("Task 3.2: NLP Extractor (CLIP Text) Validation PASSED")
     print("=" * 60)
     return True
 

@@ -1,0 +1,1439 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e1924]:
+      - generic [ref=e5]:
+        - button [ref=e1925] [cursor=pointer]: menu
+        - link [ref=e1926] [cursor=pointer]:
+          - /url: "#site-content"
+          - text: Skip to content
+        - link [ref=e1927] [cursor=pointer]:
+          - /url: /
+          - img [ref=e1928]
+      - button [ref=e1929] [cursor=pointer]:
+        - img [ref=e14]
+        - generic [ref=e19]: Create
+      - generic [ref=e22]:
+        - list [ref=e23]:
+          - listitem [ref=e1930]:
+            - link [ref=e1931] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e27]:
+                - generic [ref=e30]: explore
+                - paragraph [ref=e32]: Home
+          - listitem [ref=e1932]:
+            - link [ref=e1933] [cursor=pointer]:
+              - /url: /competitions
+              - generic [ref=e36]:
+                - generic [ref=e39]: emoji_events
+                - paragraph [ref=e41]: Competitions
+          - listitem [ref=e1934]:
+            - link [ref=e1935] [cursor=pointer]:
+              - /url: /datasets
+              - generic [ref=e45]:
+                - generic [ref=e48]: table_chart
+                - paragraph [ref=e50]: Datasets
+          - listitem [ref=e1936]:
+            - link [ref=e1937] [cursor=pointer]:
+              - /url: /models
+              - generic [ref=e55]:
+                - generic [ref=e58]: tenancy
+                - paragraph [ref=e60]: Models
+          - listitem [ref=e1938]:
+            - link [ref=e1939] [cursor=pointer]:
+              - /url: /benchmarks
+              - generic [ref=e64]:
+                - generic [ref=e67]: leaderboard
+                - paragraph [ref=e69]: Benchmarks
+          - listitem [ref=e1940]:
+            - link [ref=e1941] [cursor=pointer]:
+              - /url: /game-arena
+              - generic [ref=e73]:
+                - generic [ref=e76]: smart_toy
+                - paragraph [ref=e78]: Game Arena
+          - listitem [ref=e1942]:
+            - link [ref=e1943] [cursor=pointer]:
+              - /url: /code
+              - generic [ref=e82]:
+                - generic [ref=e85]: code
+                - paragraph [ref=e87]: Code
+          - listitem [ref=e1944]:
+            - link [ref=e1945] [cursor=pointer]:
+              - /url: /discussions
+              - generic [ref=e91]:
+                - generic [ref=e94]: comment
+                - paragraph [ref=e96]: Discussions
+          - listitem [ref=e1946]:
+            - link [ref=e1947] [cursor=pointer]:
+              - /url: /learn
+              - generic [ref=e100]:
+                - generic [ref=e103]: school
+                - paragraph [ref=e105]: Learn
+        - list [ref=e106]:
+          - listitem [ref=e1948]:
+            - link [ref=e1949] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e110]:
+                - generic [ref=e113]: expand_more
+                - paragraph [ref=e115]: More
+    - navigation [ref=e1950]:
+      - generic [ref=e118]:
+        - generic [ref=e122]:
+          - generic [ref=e123]: search
+          - textbox [ref=e1951]:
+            - /placeholder: Search
+          - group
+        - generic [ref=e126]:
+          - link [ref=e1952] [cursor=pointer]:
+            - /url: /account/login?phase=startSignInTab&returnUrl=%2Fdatasets%2Fdatasnaek%2Fyoutube-new
+            - button [ref=e1953]:
+              - generic [ref=e130]: Sign In
+          - link [ref=e1954] [cursor=pointer]:
+            - /url: /account/login?phase=startRegisterTab&returnUrl=%2Fdatasets%2Fdatasnaek%2Fyoutube-new
+            - button [ref=e1955]:
+              - generic [ref=e134]: Register
+    - main [ref=e135]:
+      - generic [ref=e137]:
+        - generic [ref=e138]: Kaggle uses cookies from Google to deliver and enhance the quality of its services and to analyze traffic.
+        - generic [ref=e139]:
+          - link [ref=e1956] [cursor=pointer]:
+            - /url: /cookies
+            - generic [ref=e141]: Learn more
+          - generic [ref=e142] [cursor=pointer]: OK, Got it.
+      - generic [ref=e146]:
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - link [ref=e1957] [cursor=pointer]:
+              - /url: /datasnaek
+              - img [ref=e152]
+            - generic [ref=e155]:
+              - generic [ref=e157]: Mitchell J
+              - generic [ref=e158]: · Updated 7 years ago
+            - generic [ref=e159]:
+              - generic [ref=e160]:
+                - button [ref=e1959] [cursor=pointer]:
+                  - generic [ref=e162]: arrow_drop_up
+                - button [ref=e1960] [cursor=pointer]: "5903"
+              - button [ref=e1961] [cursor=pointer]:
+                - generic [ref=e166]: code
+                - generic [ref=e167]: Code
+              - button [expanded] [ref=e1962] [cursor=pointer]:
+                - generic [ref=e170]: file_download
+                - generic [ref=e171]: Download
+              - button [ref=e1963] [cursor=pointer]: more_vert
+          - generic [ref=e175]:
+            - heading [level=1] [ref=e1964]: Trending YouTube Video Statistics
+            - generic [ref=e177]: Daily statistics for trending YouTube videos
+        - generic [ref=e180]:
+          - tablist [ref=e187]:
+            - tab [selected] [ref=e1965] [cursor=pointer]:
+              - generic [ref=e189]: Data Card
+            - tab [ref=e1966] [cursor=pointer]:
+              - generic [ref=e191]: Code (6139)
+            - tab [ref=e1967] [cursor=pointer]:
+              - generic [ref=e193]: Discussion (48)
+            - tab [ref=e1968] [cursor=pointer]:
+              - generic [ref=e195]: Suggestions (4)
+          - separator [ref=e197]
+        - generic [ref=e198]:
+          - generic [ref=e199]:
+            - generic [ref=e200]:
+              - heading [level=2] [ref=e1969]: About Dataset
+              - generic [ref=e205]:
+                - generic [ref=e208]:
+                  - paragraph [ref=e209]:
+                    - text: "UPDATE: Source code used for collecting this data"
+                    - link [ref=e1970] [cursor=pointer]:
+                      - /url: https://github.com/DataSnaek/Trending-YouTube-Scraper
+                      - text: released here
+                  - heading [level=3] [ref=e1971]: Context
+                  - paragraph [ref=e212]:
+                    - text: YouTube (the world-famous video sharing website) maintains a list of the
+                    - link [ref=e1972] [cursor=pointer]:
+                      - /url: https://www.youtube.com/feed/trending
+                      - text: top trending videos
+                    - text: on the platform.
+                    - link [ref=e1973] [cursor=pointer]:
+                      - /url: http://variety.com/2017/digital/news/youtube-2017-top-trending-videos-music-videos-1202631416/
+                      - text: According to Variety magazine
+                    - text: ", “To determine the year’s top-trending videos, YouTube uses a combination of factors including measuring users interactions (number of views, shares, comments and likes). Note that they’re not the most-viewed videos overall for the calendar year”. Top performers on the YouTube trending list are music videos (such as the famously virile “Gangam Style”), celebrity and/or reality TV performances, and the random dude-with-a-camera viral videos that YouTube is well-known for."
+                  - paragraph [ref=e215]: This dataset is a daily record of the top trending YouTube videos.
+                  - paragraph [ref=e216]:
+                    - text: Note that this dataset is a structurally improved version of
+                    - link [ref=e1974] [cursor=pointer]:
+                      - /url: https://www.kaggle.com/datasnaek/youtube
+                      - text: this dataset
+                    - text: .
+                  - heading [level=3] [ref=e1975]: Content
+                  - paragraph [ref=e219]: This dataset includes several months (and counting) of data on daily trending YouTube videos. Data is included for the US, GB, DE, CA, and FR regions (USA, Great Britain, Germany, Canada, and France, respectively), with up to 200 listed trending videos per day.
+                  - paragraph [ref=e220]: "EDIT: Now includes data from RU, MX, KR, JP and IN regions (Russia, Mexico, South Korea, Japan and India respectively) over the same time period."
+                  - paragraph [ref=e221]: Each region’s data is in a separate file. Data includes the video title, channel title, publish time, tags, views, likes and dislikes, description, and comment count.
+                  - paragraph [ref=e222]:
+                    - text: The data also includes a
+                    - code [ref=e223]: category_id
+                    - text: field, which varies between regions. To retrieve the categories for a specific video, find it in the associated
+                    - code [ref=e224]: JSON
+                    - text: . One such file is included for each of the five regions in the dataset.
+                  - paragraph [ref=e225]:
+                    - text: For more information on specific columns in the dataset refer to the
+                    - link [ref=e1976] [cursor=pointer]:
+                      - /url: https://www.kaggle.com/datasnaek/youtube-new/data
+                      - text: column metadata
+                    - text: .
+                  - heading [level=3] [ref=e1977]: Acknowledgements
+                  - paragraph [ref=e228]: This dataset was collected using the YouTube API.
+                  - heading [level=3] [ref=e1978]: Inspiration
+                  - paragraph [ref=e230]: "Possible uses for this dataset could include:"
+                  - list [ref=e231]:
+                    - listitem [ref=e232]: Sentiment analysis in a variety of forms
+                    - listitem [ref=e233]: Categorising YouTube videos based on their comments and statistics.
+                    - listitem [ref=e234]: Training ML algorithms like RNNs to generate their own YouTube comments.
+                    - listitem [ref=e235]: Analysing what factors affect how popular a YouTube video will be.
+                    - listitem [ref=e236]: Statistical analysis over time .
+                  - paragraph [ref=e237]: For further inspiration, see the kernels on this dataset!
+                - button [ref=e1979] [cursor=pointer]:
+                  - generic [ref=e239]: expand_more
+                  - generic [ref=e240]: View more
+            - generic [ref=e241]:
+              - generic [ref=e242]:
+                - heading [level=2] [ref=e1980]: Usability
+                - tooltip [ref=e1981]: info
+              - paragraph [ref=e246]: "7.94"
+              - heading [level=2] [ref=e1982]: License
+              - paragraph [ref=e248]:
+                - link [ref=e1983] [cursor=pointer]:
+                  - /url: https://creativecommons.org/publicdomain/zero/1.0/
+                  - text: "CC0: Public Domain"
+              - heading [level=2] [ref=e1984]: Expected update frequency
+              - paragraph [ref=e251]: Not specified
+              - heading [level=2] [ref=e1985]: Tags
+              - group [ref=e1986]:
+                - link [ref=e1987] [cursor=pointer]:
+                  - /url: /datasets?tags=2200-Arts+and+Entertainment
+                  - generic [ref=e257]: Arts and Entertainment
+                - link [ref=e1988] [cursor=pointer]:
+                  - /url: /datasets?tags=12116-Internet
+                  - generic [ref=e259]: Internet
+                - link [ref=e1989] [cursor=pointer]:
+                  - /url: /datasets?tags=2107-Languages
+                  - generic [ref=e261]: Languages
+                - link [ref=e1990] [cursor=pointer]:
+                  - /url: /datasets?tags=11208-Linguistics
+                  - generic [ref=e263]: Linguistics
+                - link [ref=e1991] [cursor=pointer]:
+                  - /url: /datasets?tags=2112-Popular+Culture
+                  - generic [ref=e265]: Popular Culture
+          - generic [ref=e268]:
+            - generic [ref=e270]:
+              - generic [ref=e271]:
+                - heading [level=2] [ref=e1992]:
+                  - text: CA_category_id.json
+                  - generic [ref=e273]: (7.91 kB)
+                - button [ref=e1993] [cursor=pointer]: get_app
+                - button [ref=e1994] [cursor=pointer]: fullscreen
+                - button [ref=e1995] [cursor=pointer]: chevron_right
+              - generic [ref=e290]:
+                - generic [ref=e291]:
+                  - generic [ref=e292] [cursor=pointer]:
+                    - img [ref=e295]
+                    - generic [ref=e297]:
+                      - generic [ref=e298]: "\"root\""
+                      - generic [ref=e299]: ":"
+                    - generic [ref=e300]: "{"
+                  - generic [ref=e302]: 3 items
+                - generic [ref=e304]:
+                  - generic [ref=e305]:
+                    - generic [ref=e306]:
+                      - generic [ref=e307]:
+                        - text: "\""
+                        - generic [ref=e308]: kind
+                        - text: "\""
+                      - generic [ref=e309]: ":"
+                    - generic [ref=e311]:
+                      - text: string
+                      - generic [ref=e312]: "\"youtube#videoCategoryListResponse\""
+                  - generic [ref=e313]:
+                    - generic [ref=e314]:
+                      - generic [ref=e315]:
+                        - text: "\""
+                        - generic [ref=e316]: etag
+                        - text: "\""
+                      - generic [ref=e317]: ":"
+                    - generic [ref=e319]:
+                      - text: string
+                      - generic [ref=e320]: "\"\"ld9biNPKjAjgjV7EZ4EKeEGrhao/1v2mrzYSYG6onNLt2qTj13hkQZk\"\""
+                  - generic [ref=e321]:
+                    - generic [ref=e322]:
+                      - generic [ref=e323] [cursor=pointer]:
+                        - img [ref=e326]
+                        - generic [ref=e328]:
+                          - generic [ref=e329]: "\"items\""
+                          - generic [ref=e330]: ":"
+                        - generic [ref=e331]: "["
+                      - generic [ref=e333]: 31 items
+                    - generic [ref=e335]:
+                      - generic [ref=e336]:
+                        - generic [ref=e338] [cursor=pointer]:
+                          - img [ref=e341]
+                          - generic [ref=e343]:
+                            - text: "0"
+                            - generic [ref=e344]: ":"
+                          - generic [ref=e345]: "{"
+                        - generic [ref=e346] [cursor=pointer]: ...
+                        - generic [ref=e347]:
+                          - generic [ref=e348] [cursor=pointer]: "}"
+                          - generic [ref=e350]: 4 items
+                      - generic [ref=e351]:
+                        - generic [ref=e353] [cursor=pointer]:
+                          - img [ref=e356]
+                          - generic [ref=e358]:
+                            - text: "1"
+                            - generic [ref=e359]: ":"
+                          - generic [ref=e360]: "{"
+                        - generic [ref=e361] [cursor=pointer]: ...
+                        - generic [ref=e362]:
+                          - generic [ref=e363] [cursor=pointer]: "}"
+                          - generic [ref=e365]: 4 items
+                      - generic [ref=e366]:
+                        - generic [ref=e368] [cursor=pointer]:
+                          - img [ref=e371]
+                          - generic [ref=e373]:
+                            - text: "2"
+                            - generic [ref=e374]: ":"
+                          - generic [ref=e375]: "{"
+                        - generic [ref=e376] [cursor=pointer]: ...
+                        - generic [ref=e377]:
+                          - generic [ref=e378] [cursor=pointer]: "}"
+                          - generic [ref=e380]: 4 items
+                      - generic [ref=e381]:
+                        - generic [ref=e383] [cursor=pointer]:
+                          - img [ref=e386]
+                          - generic [ref=e388]:
+                            - text: "3"
+                            - generic [ref=e389]: ":"
+                          - generic [ref=e390]: "{"
+                        - generic [ref=e391] [cursor=pointer]: ...
+                        - generic [ref=e392]:
+                          - generic [ref=e393] [cursor=pointer]: "}"
+                          - generic [ref=e395]: 4 items
+                      - generic [ref=e396]:
+                        - generic [ref=e398] [cursor=pointer]:
+                          - img [ref=e401]
+                          - generic [ref=e403]:
+                            - text: "4"
+                            - generic [ref=e404]: ":"
+                          - generic [ref=e405]: "{"
+                        - generic [ref=e406] [cursor=pointer]: ...
+                        - generic [ref=e407]:
+                          - generic [ref=e408] [cursor=pointer]: "}"
+                          - generic [ref=e410]: 4 items
+                      - generic [ref=e411]:
+                        - generic [ref=e413] [cursor=pointer]:
+                          - img [ref=e416]
+                          - generic [ref=e418]:
+                            - text: "5"
+                            - generic [ref=e419]: ":"
+                          - generic [ref=e420]: "{"
+                        - generic [ref=e421] [cursor=pointer]: ...
+                        - generic [ref=e422]:
+                          - generic [ref=e423] [cursor=pointer]: "}"
+                          - generic [ref=e425]: 4 items
+                      - generic [ref=e426]:
+                        - generic [ref=e428] [cursor=pointer]:
+                          - img [ref=e431]
+                          - generic [ref=e433]:
+                            - text: "6"
+                            - generic [ref=e434]: ":"
+                          - generic [ref=e435]: "{"
+                        - generic [ref=e436] [cursor=pointer]: ...
+                        - generic [ref=e437]:
+                          - generic [ref=e438] [cursor=pointer]: "}"
+                          - generic [ref=e440]: 4 items
+                      - generic [ref=e441]:
+                        - generic [ref=e443] [cursor=pointer]:
+                          - img [ref=e446]
+                          - generic [ref=e448]:
+                            - text: "7"
+                            - generic [ref=e449]: ":"
+                          - generic [ref=e450]: "{"
+                        - generic [ref=e451] [cursor=pointer]: ...
+                        - generic [ref=e452]:
+                          - generic [ref=e453] [cursor=pointer]: "}"
+                          - generic [ref=e455]: 4 items
+                      - generic [ref=e456]:
+                        - generic [ref=e458] [cursor=pointer]:
+                          - img [ref=e461]
+                          - generic [ref=e463]:
+                            - text: "8"
+                            - generic [ref=e464]: ":"
+                          - generic [ref=e465]: "{"
+                        - generic [ref=e466] [cursor=pointer]: ...
+                        - generic [ref=e467]:
+                          - generic [ref=e468] [cursor=pointer]: "}"
+                          - generic [ref=e470]: 4 items
+                      - generic [ref=e471]:
+                        - generic [ref=e473] [cursor=pointer]:
+                          - img [ref=e476]
+                          - generic [ref=e478]:
+                            - text: "9"
+                            - generic [ref=e479]: ":"
+                          - generic [ref=e480]: "{"
+                        - generic [ref=e481] [cursor=pointer]: ...
+                        - generic [ref=e482]:
+                          - generic [ref=e483] [cursor=pointer]: "}"
+                          - generic [ref=e485]: 4 items
+                      - generic [ref=e486]:
+                        - generic [ref=e488] [cursor=pointer]:
+                          - img [ref=e491]
+                          - generic [ref=e493]:
+                            - text: "10"
+                            - generic [ref=e494]: ":"
+                          - generic [ref=e495]: "{"
+                        - generic [ref=e496] [cursor=pointer]: ...
+                        - generic [ref=e497]:
+                          - generic [ref=e498] [cursor=pointer]: "}"
+                          - generic [ref=e500]: 4 items
+                      - generic [ref=e501]:
+                        - generic [ref=e503] [cursor=pointer]:
+                          - img [ref=e506]
+                          - generic [ref=e508]:
+                            - text: "11"
+                            - generic [ref=e509]: ":"
+                          - generic [ref=e510]: "{"
+                        - generic [ref=e511] [cursor=pointer]: ...
+                        - generic [ref=e512]:
+                          - generic [ref=e513] [cursor=pointer]: "}"
+                          - generic [ref=e515]: 4 items
+                      - generic [ref=e516]:
+                        - generic [ref=e518] [cursor=pointer]:
+                          - img [ref=e521]
+                          - generic [ref=e523]:
+                            - text: "12"
+                            - generic [ref=e524]: ":"
+                          - generic [ref=e525]: "{"
+                        - generic [ref=e526] [cursor=pointer]: ...
+                        - generic [ref=e527]:
+                          - generic [ref=e528] [cursor=pointer]: "}"
+                          - generic [ref=e530]: 4 items
+                      - generic [ref=e531]:
+                        - generic [ref=e533] [cursor=pointer]:
+                          - img [ref=e536]
+                          - generic [ref=e538]:
+                            - text: "13"
+                            - generic [ref=e539]: ":"
+                          - generic [ref=e540]: "{"
+                        - generic [ref=e541] [cursor=pointer]: ...
+                        - generic [ref=e542]:
+                          - generic [ref=e543] [cursor=pointer]: "}"
+                          - generic [ref=e545]: 4 items
+                      - generic [ref=e546]:
+                        - generic [ref=e548] [cursor=pointer]:
+                          - img [ref=e551]
+                          - generic [ref=e553]:
+                            - text: "14"
+                            - generic [ref=e554]: ":"
+                          - generic [ref=e555]: "{"
+                        - generic [ref=e556] [cursor=pointer]: ...
+                        - generic [ref=e557]:
+                          - generic [ref=e558] [cursor=pointer]: "}"
+                          - generic [ref=e560]: 4 items
+                      - generic [ref=e561]:
+                        - generic [ref=e563] [cursor=pointer]:
+                          - img [ref=e566]
+                          - generic [ref=e568]:
+                            - text: "15"
+                            - generic [ref=e569]: ":"
+                          - generic [ref=e570]: "{"
+                        - generic [ref=e571] [cursor=pointer]: ...
+                        - generic [ref=e572]:
+                          - generic [ref=e573] [cursor=pointer]: "}"
+                          - generic [ref=e575]: 4 items
+                      - generic [ref=e576]:
+                        - generic [ref=e578] [cursor=pointer]:
+                          - img [ref=e581]
+                          - generic [ref=e583]:
+                            - text: "16"
+                            - generic [ref=e584]: ":"
+                          - generic [ref=e585]: "{"
+                        - generic [ref=e586] [cursor=pointer]: ...
+                        - generic [ref=e587]:
+                          - generic [ref=e588] [cursor=pointer]: "}"
+                          - generic [ref=e590]: 4 items
+                      - generic [ref=e591]:
+                        - generic [ref=e593] [cursor=pointer]:
+                          - img [ref=e596]
+                          - generic [ref=e598]:
+                            - text: "17"
+                            - generic [ref=e599]: ":"
+                          - generic [ref=e600]: "{"
+                        - generic [ref=e601] [cursor=pointer]: ...
+                        - generic [ref=e602]:
+                          - generic [ref=e603] [cursor=pointer]: "}"
+                          - generic [ref=e605]: 4 items
+                      - generic [ref=e606]:
+                        - generic [ref=e608] [cursor=pointer]:
+                          - img [ref=e611]
+                          - generic [ref=e613]:
+                            - text: "18"
+                            - generic [ref=e614]: ":"
+                          - generic [ref=e615]: "{"
+                        - generic [ref=e616] [cursor=pointer]: ...
+                        - generic [ref=e617]:
+                          - generic [ref=e618] [cursor=pointer]: "}"
+                          - generic [ref=e620]: 4 items
+                      - generic [ref=e621]:
+                        - generic [ref=e623] [cursor=pointer]:
+                          - img [ref=e626]
+                          - generic [ref=e628]:
+                            - text: "19"
+                            - generic [ref=e629]: ":"
+                          - generic [ref=e630]: "{"
+                        - generic [ref=e631] [cursor=pointer]: ...
+                        - generic [ref=e632]:
+                          - generic [ref=e633] [cursor=pointer]: "}"
+                          - generic [ref=e635]: 4 items
+                      - generic [ref=e636]:
+                        - generic [ref=e638] [cursor=pointer]:
+                          - img [ref=e641]
+                          - generic [ref=e643]:
+                            - text: "20"
+                            - generic [ref=e644]: ":"
+                          - generic [ref=e645]: "{"
+                        - generic [ref=e646] [cursor=pointer]: ...
+                        - generic [ref=e647]:
+                          - generic [ref=e648] [cursor=pointer]: "}"
+                          - generic [ref=e650]: 4 items
+                      - generic [ref=e651]:
+                        - generic [ref=e653] [cursor=pointer]:
+                          - img [ref=e656]
+                          - generic [ref=e658]:
+                            - text: "21"
+                            - generic [ref=e659]: ":"
+                          - generic [ref=e660]: "{"
+                        - generic [ref=e661] [cursor=pointer]: ...
+                        - generic [ref=e662]:
+                          - generic [ref=e663] [cursor=pointer]: "}"
+                          - generic [ref=e665]: 4 items
+                      - generic [ref=e666]:
+                        - generic [ref=e668] [cursor=pointer]:
+                          - img [ref=e671]
+                          - generic [ref=e673]:
+                            - text: "22"
+                            - generic [ref=e674]: ":"
+                          - generic [ref=e675]: "{"
+                        - generic [ref=e676] [cursor=pointer]: ...
+                        - generic [ref=e677]:
+                          - generic [ref=e678] [cursor=pointer]: "}"
+                          - generic [ref=e680]: 4 items
+                      - generic [ref=e681]:
+                        - generic [ref=e683] [cursor=pointer]:
+                          - img [ref=e686]
+                          - generic [ref=e688]:
+                            - text: "23"
+                            - generic [ref=e689]: ":"
+                          - generic [ref=e690]: "{"
+                        - generic [ref=e691] [cursor=pointer]: ...
+                        - generic [ref=e692]:
+                          - generic [ref=e693] [cursor=pointer]: "}"
+                          - generic [ref=e695]: 4 items
+                      - generic [ref=e696]:
+                        - generic [ref=e698] [cursor=pointer]:
+                          - img [ref=e701]
+                          - generic [ref=e703]:
+                            - text: "24"
+                            - generic [ref=e704]: ":"
+                          - generic [ref=e705]: "{"
+                        - generic [ref=e706] [cursor=pointer]: ...
+                        - generic [ref=e707]:
+                          - generic [ref=e708] [cursor=pointer]: "}"
+                          - generic [ref=e710]: 4 items
+                      - generic [ref=e711]:
+                        - generic [ref=e713] [cursor=pointer]:
+                          - img [ref=e716]
+                          - generic [ref=e718]:
+                            - text: "25"
+                            - generic [ref=e719]: ":"
+                          - generic [ref=e720]: "{"
+                        - generic [ref=e721] [cursor=pointer]: ...
+                        - generic [ref=e722]:
+                          - generic [ref=e723] [cursor=pointer]: "}"
+                          - generic [ref=e725]: 4 items
+                      - generic [ref=e726]:
+                        - generic [ref=e728] [cursor=pointer]:
+                          - img [ref=e731]
+                          - generic [ref=e733]:
+                            - text: "26"
+                            - generic [ref=e734]: ":"
+                          - generic [ref=e735]: "{"
+                        - generic [ref=e736] [cursor=pointer]: ...
+                        - generic [ref=e737]:
+                          - generic [ref=e738] [cursor=pointer]: "}"
+                          - generic [ref=e740]: 4 items
+                      - generic [ref=e741]:
+                        - generic [ref=e743] [cursor=pointer]:
+                          - img [ref=e746]
+                          - generic [ref=e748]:
+                            - text: "27"
+                            - generic [ref=e749]: ":"
+                          - generic [ref=e750]: "{"
+                        - generic [ref=e751] [cursor=pointer]: ...
+                        - generic [ref=e752]:
+                          - generic [ref=e753] [cursor=pointer]: "}"
+                          - generic [ref=e755]: 4 items
+                      - generic [ref=e756]:
+                        - generic [ref=e758] [cursor=pointer]:
+                          - img [ref=e761]
+                          - generic [ref=e763]:
+                            - text: "28"
+                            - generic [ref=e764]: ":"
+                          - generic [ref=e765]: "{"
+                        - generic [ref=e766] [cursor=pointer]: ...
+                        - generic [ref=e767]:
+                          - generic [ref=e768] [cursor=pointer]: "}"
+                          - generic [ref=e770]: 4 items
+                      - generic [ref=e771]:
+                        - generic [ref=e773] [cursor=pointer]:
+                          - img [ref=e776]
+                          - generic [ref=e778]:
+                            - text: "29"
+                            - generic [ref=e779]: ":"
+                          - generic [ref=e780]: "{"
+                        - generic [ref=e781] [cursor=pointer]: ...
+                        - generic [ref=e782]:
+                          - generic [ref=e783] [cursor=pointer]: "}"
+                          - generic [ref=e785]: 4 items
+                      - generic [ref=e786]:
+                        - generic [ref=e788] [cursor=pointer]:
+                          - img [ref=e791]
+                          - generic [ref=e793]:
+                            - text: "30"
+                            - generic [ref=e794]: ":"
+                          - generic [ref=e795]: "{"
+                        - generic [ref=e796] [cursor=pointer]: ...
+                        - generic [ref=e797]:
+                          - generic [ref=e798] [cursor=pointer]: "}"
+                          - generic [ref=e800]: 4 items
+                    - generic [ref=e802] [cursor=pointer]: "]"
+                - generic [ref=e804] [cursor=pointer]: "}"
+            - generic [ref=e805]:
+              - generic [ref=e807]:
+                - generic [ref=e808]:
+                  - heading [level=2] [ref=e1996]: Data Explorer
+                  - paragraph [ref=e810]:
+                    - button [ref=e1997] [cursor=pointer]: Version 115
+                    - text: (539.22 MB)
+                - list [ref=e812]:
+                  - listitem [ref=e813]:
+                    - generic [ref=e814] [cursor=pointer]:
+                      - img [ref=e817]
+                      - paragraph [ref=e828]: CA_category_id.json
+                  - listitem [ref=e829]:
+                    - generic [ref=e830] [cursor=pointer]:
+                      - generic [ref=e832]: calendar_view_week
+                      - paragraph [ref=e836]: CAvideos.csv
+                  - listitem [ref=e837]:
+                    - generic [ref=e838] [cursor=pointer]:
+                      - img [ref=e841]
+                      - paragraph [ref=e852]: DE_category_id.json
+                  - listitem [ref=e853]:
+                    - generic [ref=e854] [cursor=pointer]:
+                      - generic [ref=e856]: calendar_view_week
+                      - paragraph [ref=e860]: DEvideos.csv
+                  - listitem [ref=e861]:
+                    - generic [ref=e862] [cursor=pointer]:
+                      - img [ref=e865]
+                      - paragraph [ref=e876]: FR_category_id.json
+                  - listitem [ref=e877]:
+                    - generic [ref=e878] [cursor=pointer]:
+                      - generic [ref=e880]: calendar_view_week
+                      - paragraph [ref=e884]: FRvideos.csv
+                  - listitem [ref=e885]:
+                    - generic [ref=e886] [cursor=pointer]:
+                      - img [ref=e889]
+                      - paragraph [ref=e900]: GB_category_id.json
+                  - listitem [ref=e901]:
+                    - generic [ref=e902] [cursor=pointer]:
+                      - generic [ref=e904]: calendar_view_week
+                      - paragraph [ref=e908]: GBvideos.csv
+                  - listitem [ref=e909]:
+                    - generic [ref=e910] [cursor=pointer]:
+                      - img [ref=e913]
+                      - paragraph [ref=e924]: IN_category_id.json
+                  - listitem [ref=e925]:
+                    - generic [ref=e926] [cursor=pointer]:
+                      - generic [ref=e928]: calendar_view_week
+                      - paragraph [ref=e932]: INvideos.csv
+                  - listitem [ref=e933]:
+                    - generic [ref=e934] [cursor=pointer]:
+                      - img [ref=e937]
+                      - paragraph [ref=e948]: JP_category_id.json
+                  - listitem [ref=e949]:
+                    - generic [ref=e950] [cursor=pointer]:
+                      - generic [ref=e952]: calendar_view_week
+                      - paragraph [ref=e956]: JPvideos.csv
+                  - listitem [ref=e957]:
+                    - generic [ref=e958] [cursor=pointer]:
+                      - img [ref=e961]
+                      - paragraph [ref=e972]: KR_category_id.json
+                  - listitem [ref=e973]:
+                    - generic [ref=e974] [cursor=pointer]:
+                      - generic [ref=e976]: calendar_view_week
+                      - paragraph [ref=e980]: KRvideos.csv
+                  - listitem [ref=e981]:
+                    - generic [ref=e982] [cursor=pointer]:
+                      - img [ref=e985]
+                      - paragraph [ref=e996]: MX_category_id.json
+                  - listitem [ref=e997]:
+                    - generic [ref=e998] [cursor=pointer]:
+                      - generic [ref=e1000]: calendar_view_week
+                      - paragraph [ref=e1004]: MXvideos.csv
+                  - listitem [ref=e1005]:
+                    - generic [ref=e1006] [cursor=pointer]:
+                      - img [ref=e1009]
+                      - paragraph [ref=e1020]: RU_category_id.json
+                  - listitem [ref=e1021]:
+                    - generic [ref=e1022] [cursor=pointer]:
+                      - generic [ref=e1024]: calendar_view_week
+                      - paragraph [ref=e1028]: RUvideos.csv
+                  - listitem [ref=e1029]:
+                    - generic [ref=e1030] [cursor=pointer]:
+                      - img [ref=e1033]
+                      - paragraph [ref=e1044]: US_category_id.json
+                  - listitem [ref=e1045]:
+                    - generic [ref=e1046] [cursor=pointer]:
+                      - generic [ref=e1048]: calendar_view_week
+                      - paragraph [ref=e1052]: USvideos.csv
+              - generic [ref=e1053]:
+                - heading [level=2] [ref=e1998]: Summary
+                - button [ref=e1999] [cursor=pointer]:
+                  - generic [ref=e1058]: arrow_right
+                  - generic [ref=e1060]: folder
+                  - paragraph [ref=e1061]: 20 files
+                - button [ref=e2000] [cursor=pointer]:
+                  - generic [ref=e1065]: arrow_right
+                  - generic [ref=e1067]: calendar_view_week
+                  - paragraph [ref=e1068]: 160 columns
+          - generic [ref=e1070]:
+            - generic [ref=e1072]:
+              - generic [ref=e1073]: lightbulb
+              - heading [level=2] [ref=e2001]: See what others are saying about this dataset
+            - heading [level=3] [ref=e2002]: What have you used this dataset for?
+            - group [ref=e2003]:
+              - button [ref=e2004] [cursor=pointer]:
+                - generic [ref=e1079]: Learning 308
+              - button [ref=e2005] [cursor=pointer]:
+                - generic [ref=e1081]: Research 98
+              - button [ref=e2006] [cursor=pointer]:
+                - generic [ref=e1083]: Application 28
+              - button [ref=e2007] [cursor=pointer]:
+                - generic [ref=e1085]: LLM Fine-Tuning 9
+            - heading [level=3] [ref=e2008]: How would you describe this dataset?
+            - group [ref=e2009]:
+              - button [ref=e2010] [cursor=pointer]:
+                - generic [ref=e1089]: Well-documented 61
+              - button [ref=e2011] [cursor=pointer]:
+                - generic [ref=e1091]: Well-maintained 38
+              - button [ref=e2012] [cursor=pointer]:
+                - generic [ref=e1093]: Clean data 102
+              - button [ref=e2013] [cursor=pointer]:
+                - generic [ref=e1095]: Original 27
+              - button [ref=e2014] [cursor=pointer]:
+                - generic [ref=e1097]: High-quality notebooks 26
+              - checkbox [ref=e2015] [cursor=pointer]:
+                - generic [ref=e1099]: Other
+          - separator [ref=e1100]
+          - generic [ref=e1101]:
+            - generic [ref=e1102]:
+              - generic [ref=e1103]:
+                - generic [ref=e1104]: text_snippet
+                - heading [level=2] [ref=e2016]: Metadata
+              - button [ref=e2017] [cursor=pointer]:
+                - generic [ref=e1108]: unfold_more
+                - generic [ref=e1109]: Expand All
+            - generic [ref=e1110]:
+              - generic [ref=e1112] [cursor=pointer]:
+                - heading [level=3] [ref=e2018]: Collaborators
+                - button [ref=e2019]: keyboard_arrow_down
+              - generic [ref=e1117] [cursor=pointer]:
+                - heading [level=3] [ref=e2020]: Authors
+                - button [ref=e2021]: keyboard_arrow_down
+              - generic [ref=e1122] [cursor=pointer]:
+                - heading [level=3] [ref=e2022]: Coverage
+                - button [ref=e2023]: keyboard_arrow_down
+              - generic [ref=e1127] [cursor=pointer]:
+                - heading [level=3] [ref=e2024]: DOI Citation
+                - button [ref=e2025]: keyboard_arrow_down
+              - generic [ref=e1132] [cursor=pointer]:
+                - heading [level=3] [ref=e2026]: Provenance
+                - button [ref=e2027]: keyboard_arrow_down
+              - generic [ref=e1137] [cursor=pointer]:
+                - heading [level=3] [ref=e2028]: License
+                - button [ref=e2029]: keyboard_arrow_down
+              - generic [ref=e1142] [cursor=pointer]:
+                - heading [level=3] [ref=e2030]: Expected Update Frequency
+                - button [ref=e2031]: keyboard_arrow_down
+          - generic [ref=e1146]:
+            - generic [ref=e1148]:
+              - generic [ref=e1149]: insights
+              - heading [level=2] [ref=e2032]: Activity Overview
+            - generic [ref=e1152]:
+              - generic [ref=e1153]:
+                - generic [ref=e1154]:
+                  - generic [ref=e1157]: visibility
+                  - heading [level=3] [ref=e2033]: Views
+                - generic [ref=e1159]:
+                  - generic [ref=e1161]:
+                    - generic [ref=e1162]: 2.17M
+                    - generic [ref=e2034]:
+                      - img [ref=e2035]
+                      - table [ref=e1180]:
+                        - rowgroup [ref=e1181]:
+                          - row [ref=e2037]:
+                            - columnheader [ref=e2038]: date
+                            - columnheader [ref=e2039]: Views
+                        - rowgroup [ref=e1185]:
+                          - row [ref=e2040]:
+                            - cell [ref=e2041]: Mar 17, 2026
+                            - cell [ref=e2042]: "378"
+                          - row [ref=e2043]:
+                            - cell [ref=e2044]: Mar 18, 2026
+                            - cell [ref=e2045]: "364"
+                          - row [ref=e2046]:
+                            - cell [ref=e2047]: Mar 19, 2026
+                            - cell [ref=e2048]: "296"
+                          - row [ref=e2049]:
+                            - cell [ref=e2050]: Mar 20, 2026
+                            - cell [ref=e2051]: "367"
+                          - row [ref=e2052]:
+                            - cell [ref=e2053]: Mar 21, 2026
+                            - cell [ref=e2054]: "232"
+                          - row [ref=e2055]:
+                            - cell [ref=e2056]: Mar 22, 2026
+                            - cell [ref=e2057]: "318"
+                          - row [ref=e2058]:
+                            - cell [ref=e2059]: Mar 23, 2026
+                            - cell [ref=e2060]: "353"
+                          - row [ref=e2061]:
+                            - cell [ref=e2062]: Mar 24, 2026
+                            - cell [ref=e2063]: "451"
+                          - row [ref=e2064]:
+                            - cell [ref=e2065]: Mar 25, 2026
+                            - cell [ref=e2066]: "462"
+                          - row [ref=e2067]:
+                            - cell [ref=e2068]: Mar 26, 2026
+                            - cell [ref=e2069]: "412"
+                          - row [ref=e2070]:
+                            - cell [ref=e2071]: Mar 27, 2026
+                            - cell [ref=e2072]: "324"
+                          - row [ref=e2073]:
+                            - cell [ref=e2074]: Mar 28, 2026
+                            - cell [ref=e2075]: "261"
+                          - row [ref=e2076]:
+                            - cell [ref=e2077]: Mar 29, 2026
+                            - cell [ref=e2078]: "417"
+                          - row [ref=e2079]:
+                            - cell [ref=e2080]: Mar 30, 2026
+                            - cell [ref=e2081]: "414"
+                          - row [ref=e2082]:
+                            - cell [ref=e2083]: Mar 31, 2026
+                            - cell [ref=e2084]: "350"
+                          - row [ref=e2085]:
+                            - cell [ref=e2086]: Apr 1, 2026
+                            - cell [ref=e2087]: "388"
+                          - row [ref=e2088]:
+                            - cell [ref=e2089]: Apr 2, 2026
+                            - cell [ref=e2090]: "349"
+                          - row [ref=e2091]:
+                            - cell [ref=e2092]: Apr 3, 2026
+                            - cell [ref=e2093]: "299"
+                          - row [ref=e2094]:
+                            - cell [ref=e2095]: Apr 4, 2026
+                            - cell [ref=e2096]: "260"
+                          - row [ref=e2097]:
+                            - cell [ref=e2098]: Apr 5, 2026
+                            - cell [ref=e2099]: "299"
+                          - row [ref=e2100]:
+                            - cell [ref=e2101]: Apr 6, 2026
+                            - cell [ref=e2102]: "422"
+                          - row [ref=e2103]:
+                            - cell [ref=e2104]: Apr 7, 2026
+                            - cell [ref=e2105]: "477"
+                          - row [ref=e2106]:
+                            - cell [ref=e2107]: Apr 8, 2026
+                            - cell [ref=e2108]: "478"
+                          - row [ref=e2109]:
+                            - cell [ref=e2110]: Apr 9, 2026
+                            - cell [ref=e2111]: "534"
+                          - row [ref=e2112]:
+                            - cell [ref=e2113]: Apr 10, 2026
+                            - cell [ref=e2114]: "397"
+                          - row [ref=e2115]:
+                            - cell [ref=e2116]: Apr 11, 2026
+                            - cell [ref=e2117]: "373"
+                          - row [ref=e2118]:
+                            - cell [ref=e2119]: Apr 12, 2026
+                            - cell [ref=e2120]: "362"
+                          - row [ref=e2121]:
+                            - cell [ref=e2122]: Apr 13, 2026
+                            - cell [ref=e2123]: "439"
+                          - row [ref=e2124]:
+                            - cell [ref=e2125]: Apr 14, 2026
+                            - cell [ref=e2126]: "490"
+                  - generic [ref=e1273]:
+                    - generic [ref=e1274]:
+                      - generic [ref=e1275]: trending_up
+                      - text: 11K
+                    - generic [ref=e1276]: in the last 30 days
+              - generic [ref=e1277]:
+                - generic [ref=e1278]:
+                  - generic [ref=e1281]: download
+                  - heading [level=3] [ref=e2127]: Downloads
+                - generic [ref=e1283]:
+                  - generic [ref=e1285]:
+                    - generic [ref=e1286]: 302K
+                    - generic [ref=e2128]:
+                      - img [ref=e2129]
+                      - table [ref=e1304]:
+                        - rowgroup [ref=e1305]:
+                          - row [ref=e2131]:
+                            - columnheader [ref=e2132]: date
+                            - columnheader [ref=e2133]: Downloads
+                        - rowgroup [ref=e1309]:
+                          - row [ref=e2134]:
+                            - cell [ref=e2135]: Mar 17, 2026
+                            - cell [ref=e2136]: "74"
+                          - row [ref=e2137]:
+                            - cell [ref=e2138]: Mar 18, 2026
+                            - cell [ref=e2139]: "74"
+                          - row [ref=e2140]:
+                            - cell [ref=e2141]: Mar 19, 2026
+                            - cell [ref=e2142]: "59"
+                          - row [ref=e2143]:
+                            - cell [ref=e2144]: Mar 20, 2026
+                            - cell [ref=e2145]: "84"
+                          - row [ref=e2146]:
+                            - cell [ref=e2147]: Mar 21, 2026
+                            - cell [ref=e2148]: "78"
+                          - row [ref=e2149]:
+                            - cell [ref=e2150]: Mar 22, 2026
+                            - cell [ref=e2151]: "80"
+                          - row [ref=e2152]:
+                            - cell [ref=e2153]: Mar 23, 2026
+                            - cell [ref=e2154]: "72"
+                          - row [ref=e2155]:
+                            - cell [ref=e2156]: Mar 24, 2026
+                            - cell [ref=e2157]: "73"
+                          - row [ref=e2158]:
+                            - cell [ref=e2159]: Mar 25, 2026
+                            - cell [ref=e2160]: "122"
+                          - row [ref=e2161]:
+                            - cell [ref=e2162]: Mar 26, 2026
+                            - cell [ref=e2163]: "89"
+                          - row [ref=e2164]:
+                            - cell [ref=e2165]: Mar 27, 2026
+                            - cell [ref=e2166]: "76"
+                          - row [ref=e2167]:
+                            - cell [ref=e2168]: Mar 28, 2026
+                            - cell [ref=e2169]: "47"
+                          - row [ref=e2170]:
+                            - cell [ref=e2171]: Mar 29, 2026
+                            - cell [ref=e2172]: "97"
+                          - row [ref=e2173]:
+                            - cell [ref=e2174]: Mar 30, 2026
+                            - cell [ref=e2175]: "90"
+                          - row [ref=e2176]:
+                            - cell [ref=e2177]: Mar 31, 2026
+                            - cell [ref=e2178]: "81"
+                          - row [ref=e2179]:
+                            - cell [ref=e2180]: Apr 1, 2026
+                            - cell [ref=e2181]: "86"
+                          - row [ref=e2182]:
+                            - cell [ref=e2183]: Apr 2, 2026
+                            - cell [ref=e2184]: "55"
+                          - row [ref=e2185]:
+                            - cell [ref=e2186]: Apr 3, 2026
+                            - cell [ref=e2187]: "60"
+                          - row [ref=e2188]:
+                            - cell [ref=e2189]: Apr 4, 2026
+                            - cell [ref=e2190]: "75"
+                          - row [ref=e2191]:
+                            - cell [ref=e2192]: Apr 5, 2026
+                            - cell [ref=e2193]: "70"
+                          - row [ref=e2194]:
+                            - cell [ref=e2195]: Apr 6, 2026
+                            - cell [ref=e2196]: "92"
+                          - row [ref=e2197]:
+                            - cell [ref=e2198]: Apr 7, 2026
+                            - cell [ref=e2199]: "124"
+                          - row [ref=e2200]:
+                            - cell [ref=e2201]: Apr 8, 2026
+                            - cell [ref=e2202]: "111"
+                          - row [ref=e2203]:
+                            - cell [ref=e2204]: Apr 9, 2026
+                            - cell [ref=e2205]: "111"
+                          - row [ref=e2206]:
+                            - cell [ref=e2207]: Apr 10, 2026
+                            - cell [ref=e2208]: "79"
+                          - row [ref=e2209]:
+                            - cell [ref=e2210]: Apr 11, 2026
+                            - cell [ref=e2211]: "91"
+                          - row [ref=e2212]:
+                            - cell [ref=e2213]: Apr 12, 2026
+                            - cell [ref=e2214]: "87"
+                          - row [ref=e2215]:
+                            - cell [ref=e2216]: Apr 13, 2026
+                            - cell [ref=e2217]: "101"
+                          - row [ref=e2218]:
+                            - cell [ref=e2219]: Apr 14, 2026
+                            - cell [ref=e2220]: "81"
+                  - generic [ref=e1397]:
+                    - generic [ref=e1398]:
+                      - generic [ref=e1399]: trending_up
+                      - text: "2419"
+                    - generic [ref=e1400]: in the last 30 days
+              - generic [ref=e1401]:
+                - generic [ref=e1402]:
+                  - generic [ref=e1405]: downloading
+                  - heading [level=3] [ref=e2221]: Engagement
+                - generic [ref=e1407]:
+                  - generic [ref=e1410]: "0.13906"
+                  - generic [ref=e1412]: downloads per view
+              - generic [ref=e1413]:
+                - generic [ref=e1414]:
+                  - generic [ref=e1417]: forum
+                  - heading [level=3] [ref=e2222]: Comments
+                - generic [ref=e1419]:
+                  - generic [ref=e1422]: "171"
+                  - generic [ref=e1424]: posted
+              - generic [ref=e1425]:
+                - generic [ref=e1426]:
+                  - generic [ref=e1430]: person
+                  - heading [level=3] [ref=e2223]: Top Contributors
+                - generic [ref=e1434]:
+                  - link [ref=e2224] [cursor=pointer]:
+                    - /url: /residentmario
+                    - img [ref=e1437]
+                  - link [ref=e2226] [cursor=pointer]:
+                    - /url: /dansbecker
+                    - img [ref=e1442]
+                  - link [ref=e2228] [cursor=pointer]:
+                    - /url: /themlphdstudent
+                    - img [ref=e1447]
+            - generic [ref=e1450]:
+              - generic [ref=e1451] [cursor=pointer]:
+                - heading [level=3] [ref=e2230]: Detail View
+                - button [expanded] [ref=e2231]: keyboard_arrow_up
+              - generic [ref=e1456]:
+                - generic [ref=e1457]:
+                  - generic [ref=e1458]:
+                    - heading [level=4] [ref=e2232]: Views
+                    - generic [ref=e1461]:
+                      - combobox [ref=e2233] [cursor=pointer]:
+                        - generic [ref=e1464]: Last month
+                      - textbox: "[object Object]"
+                      - img
+                  - generic [ref=e2234]:
+                    - img [ref=e2235]:
+                      - generic [ref=e1482]:
+                        - generic [ref=e1484]: 03/23
+                        - generic [ref=e1486]: 03/30
+                        - generic [ref=e1488]: 04/06
+                        - generic [ref=e1490]: 04/13
+                        - generic [ref=e1492]: "0"
+                        - generic [ref=e1494]: "200"
+                        - generic [ref=e1496]: "400"
+                        - generic [ref=e1498]: "600"
+                    - table [ref=e1500]:
+                      - rowgroup [ref=e1501]:
+                        - row [ref=e2237]:
+                          - columnheader [ref=e2238]: date
+                          - columnheader [ref=e2239]: Views
+                      - rowgroup [ref=e1505]:
+                        - row [ref=e2240]:
+                          - cell [ref=e2241]: Mar 17, 2026
+                          - cell [ref=e2242]: "378"
+                        - row [ref=e2243]:
+                          - cell [ref=e2244]: Mar 18, 2026
+                          - cell [ref=e2245]: "364"
+                        - row [ref=e2246]:
+                          - cell [ref=e2247]: Mar 19, 2026
+                          - cell [ref=e2248]: "296"
+                        - row [ref=e2249]:
+                          - cell [ref=e2250]: Mar 20, 2026
+                          - cell [ref=e2251]: "367"
+                        - row [ref=e2252]:
+                          - cell [ref=e2253]: Mar 21, 2026
+                          - cell [ref=e2254]: "232"
+                        - row [ref=e2255]:
+                          - cell [ref=e2256]: Mar 22, 2026
+                          - cell [ref=e2257]: "318"
+                        - row [ref=e2258]:
+                          - cell [ref=e2259]: Mar 23, 2026
+                          - cell [ref=e2260]: "353"
+                        - row [ref=e2261]:
+                          - cell [ref=e2262]: Mar 24, 2026
+                          - cell [ref=e2263]: "451"
+                        - row [ref=e2264]:
+                          - cell [ref=e2265]: Mar 25, 2026
+                          - cell [ref=e2266]: "462"
+                        - row [ref=e2267]:
+                          - cell [ref=e2268]: Mar 26, 2026
+                          - cell [ref=e2269]: "412"
+                        - row [ref=e2270]:
+                          - cell [ref=e2271]: Mar 27, 2026
+                          - cell [ref=e2272]: "324"
+                        - row [ref=e2273]:
+                          - cell [ref=e2274]: Mar 28, 2026
+                          - cell [ref=e2275]: "261"
+                        - row [ref=e2276]:
+                          - cell [ref=e2277]: Mar 29, 2026
+                          - cell [ref=e2278]: "417"
+                        - row [ref=e2279]:
+                          - cell [ref=e2280]: Mar 30, 2026
+                          - cell [ref=e2281]: "414"
+                        - row [ref=e2282]:
+                          - cell [ref=e2283]: Mar 31, 2026
+                          - cell [ref=e2284]: "350"
+                        - row [ref=e2285]:
+                          - cell [ref=e2286]: Apr 1, 2026
+                          - cell [ref=e2287]: "388"
+                        - row [ref=e2288]:
+                          - cell [ref=e2289]: Apr 2, 2026
+                          - cell [ref=e2290]: "349"
+                        - row [ref=e2291]:
+                          - cell [ref=e2292]: Apr 3, 2026
+                          - cell [ref=e2293]: "299"
+                        - row [ref=e2294]:
+                          - cell [ref=e2295]: Apr 4, 2026
+                          - cell [ref=e2296]: "260"
+                        - row [ref=e2297]:
+                          - cell [ref=e2298]: Apr 5, 2026
+                          - cell [ref=e2299]: "299"
+                        - row [ref=e2300]:
+                          - cell [ref=e2301]: Apr 6, 2026
+                          - cell [ref=e2302]: "422"
+                        - row [ref=e2303]:
+                          - cell [ref=e2304]: Apr 7, 2026
+                          - cell [ref=e2305]: "477"
+                        - row [ref=e2306]:
+                          - cell [ref=e2307]: Apr 8, 2026
+                          - cell [ref=e2308]: "478"
+                        - row [ref=e2309]:
+                          - cell [ref=e2310]: Apr 9, 2026
+                          - cell [ref=e2311]: "534"
+                        - row [ref=e2312]:
+                          - cell [ref=e2313]: Apr 10, 2026
+                          - cell [ref=e2314]: "397"
+                        - row [ref=e2315]:
+                          - cell [ref=e2316]: Apr 11, 2026
+                          - cell [ref=e2317]: "373"
+                        - row [ref=e2318]:
+                          - cell [ref=e2319]: Apr 12, 2026
+                          - cell [ref=e2320]: "362"
+                        - row [ref=e2321]:
+                          - cell [ref=e2322]: Apr 13, 2026
+                          - cell [ref=e2323]: "439"
+                        - row [ref=e2324]:
+                          - cell [ref=e2325]: Apr 14, 2026
+                          - cell [ref=e2326]: "490"
+                - generic [ref=e1593]:
+                  - generic [ref=e1594]:
+                    - heading [level=4] [ref=e2327]: Downloads
+                    - generic [ref=e1597]:
+                      - combobox [ref=e2328] [cursor=pointer]:
+                        - generic [ref=e1600]: Last month
+                      - textbox: "[object Object]"
+                      - img
+                  - generic [ref=e2329]:
+                    - img [ref=e2330]:
+                      - generic [ref=e1618]:
+                        - generic [ref=e1620]: 03/23
+                        - generic [ref=e1622]: 03/30
+                        - generic [ref=e1624]: 04/06
+                        - generic [ref=e1626]: 04/13
+                        - generic [ref=e1628]: "0"
+                        - generic [ref=e1630]: "50"
+                        - generic [ref=e1632]: "100"
+                        - generic [ref=e1634]: "150"
+                    - table [ref=e1636]:
+                      - rowgroup [ref=e1637]:
+                        - row [ref=e2332]:
+                          - columnheader [ref=e2333]: date
+                          - columnheader [ref=e2334]: Downloads
+                      - rowgroup [ref=e1641]:
+                        - row [ref=e2335]:
+                          - cell [ref=e2336]: Mar 17, 2026
+                          - cell [ref=e2337]: "74"
+                        - row [ref=e2338]:
+                          - cell [ref=e2339]: Mar 18, 2026
+                          - cell [ref=e2340]: "74"
+                        - row [ref=e2341]:
+                          - cell [ref=e2342]: Mar 19, 2026
+                          - cell [ref=e2343]: "59"
+                        - row [ref=e2344]:
+                          - cell [ref=e2345]: Mar 20, 2026
+                          - cell [ref=e2346]: "84"
+                        - row [ref=e2347]:
+                          - cell [ref=e2348]: Mar 21, 2026
+                          - cell [ref=e2349]: "78"
+                        - row [ref=e2350]:
+                          - cell [ref=e2351]: Mar 22, 2026
+                          - cell [ref=e2352]: "80"
+                        - row [ref=e2353]:
+                          - cell [ref=e2354]: Mar 23, 2026
+                          - cell [ref=e2355]: "72"
+                        - row [ref=e2356]:
+                          - cell [ref=e2357]: Mar 24, 2026
+                          - cell [ref=e2358]: "73"
+                        - row [ref=e2359]:
+                          - cell [ref=e2360]: Mar 25, 2026
+                          - cell [ref=e2361]: "122"
+                        - row [ref=e2362]:
+                          - cell [ref=e2363]: Mar 26, 2026
+                          - cell [ref=e2364]: "89"
+                        - row [ref=e2365]:
+                          - cell [ref=e2366]: Mar 27, 2026
+                          - cell [ref=e2367]: "76"
+                        - row [ref=e2368]:
+                          - cell [ref=e2369]: Mar 28, 2026
+                          - cell [ref=e2370]: "47"
+                        - row [ref=e2371]:
+                          - cell [ref=e2372]: Mar 29, 2026
+                          - cell [ref=e2373]: "97"
+                        - row [ref=e2374]:
+                          - cell [ref=e2375]: Mar 30, 2026
+                          - cell [ref=e2376]: "90"
+                        - row [ref=e2377]:
+                          - cell [ref=e2378]: Mar 31, 2026
+                          - cell [ref=e2379]: "81"
+                        - row [ref=e2380]:
+                          - cell [ref=e2381]: Apr 1, 2026
+                          - cell [ref=e2382]: "86"
+                        - row [ref=e2383]:
+                          - cell [ref=e2384]: Apr 2, 2026
+                          - cell [ref=e2385]: "55"
+                        - row [ref=e2386]:
+                          - cell [ref=e2387]: Apr 3, 2026
+                          - cell [ref=e2388]: "60"
+                        - row [ref=e2389]:
+                          - cell [ref=e2390]: Apr 4, 2026
+                          - cell [ref=e2391]: "75"
+                        - row [ref=e2392]:
+                          - cell [ref=e2393]: Apr 5, 2026
+                          - cell [ref=e2394]: "70"
+                        - row [ref=e2395]:
+                          - cell [ref=e2396]: Apr 6, 2026
+                          - cell [ref=e2397]: "92"
+                        - row [ref=e2398]:
+                          - cell [ref=e2399]: Apr 7, 2026
+                          - cell [ref=e2400]: "124"
+                        - row [ref=e2401]:
+                          - cell [ref=e2402]: Apr 8, 2026
+                          - cell [ref=e2403]: "111"
+                        - row [ref=e2404]:
+                          - cell [ref=e2405]: Apr 9, 2026
+                          - cell [ref=e2406]: "111"
+                        - row [ref=e2407]:
+                          - cell [ref=e2408]: Apr 10, 2026
+                          - cell [ref=e2409]: "79"
+                        - row [ref=e2410]:
+                          - cell [ref=e2411]: Apr 11, 2026
+                          - cell [ref=e2412]: "91"
+                        - row [ref=e2413]:
+                          - cell [ref=e2414]: Apr 12, 2026
+                          - cell [ref=e2415]: "87"
+                        - row [ref=e2416]:
+                          - cell [ref=e2417]: Apr 13, 2026
+                          - cell [ref=e2418]: "101"
+                        - row [ref=e2419]:
+                          - cell [ref=e2420]: Apr 14, 2026
+                          - cell [ref=e2421]: "81"
+          - generic [ref=e1729]:
+            - generic [ref=e1730]:
+              - generic [ref=e1732]:
+                - generic [ref=e1733]:
+                  - generic [ref=e1734]: code
+                  - heading [level=2] [ref=e2422]: Related Notebooks
+                - button [ref=e2423] [cursor=pointer]:
+                  - generic [ref=e1738]: See all
+              - list [ref=e1739]:
+                - listitem [ref=e2424]:
+                  - link [ref=e2425] [cursor=pointer]:
+                    - /url: /code/residentmario/exercise-creating-reading-and-writing
+                    - generic [ref=e1742]:
+                      - generic [ref=e1743]:
+                        - generic [ref=e1744]: "Exercise: Creating, Reading and Writing"
+                        - button [ref=e2426]: more_vert
+                      - generic [ref=e1748]: Updated 3 years ago
+                      - generic [ref=e1750]: 18,393 Pitchfork Reviews+9
+                  - generic [ref=e1751]:
+                    - generic [ref=e1752]:
+                      - button [ref=e2427] [cursor=pointer]:
+                        - generic [ref=e1754]: arrow_drop_up
+                      - generic [ref=e2428]: "511332"
+                    - generic [ref=e1756]:
+                      - img [ref=e2429]
+                      - link [ref=e2430] [cursor=pointer]:
+                        - /url: /residentmario
+                        - img [ref=e1760]
+                - listitem [ref=e2432]:
+                  - link [ref=e2433] [cursor=pointer]:
+                    - /url: /code/residentmario/exercise-indexing-selecting-assigning
+                    - generic [ref=e1765]:
+                      - generic [ref=e1766]:
+                        - generic [ref=e1767]: "Exercise: Indexing, Selecting & Assigning"
+                        - button [ref=e2434]: more_vert
+                      - generic [ref=e1771]: Updated 3 years ago
+                      - generic [ref=e1773]: 18,393 Pitchfork Reviews+9
+                  - generic [ref=e1774]:
+                    - generic [ref=e1775]:
+                      - button [ref=e2435] [cursor=pointer]:
+                        - generic [ref=e1777]: arrow_drop_up
+                      - generic [ref=e2436]: "365993"
+                    - generic [ref=e1779]:
+                      - img [ref=e2437]
+                      - link [ref=e2438] [cursor=pointer]:
+                        - /url: /residentmario
+                        - img [ref=e1783]
+                - listitem [ref=e2440]:
+                  - link [ref=e2441] [cursor=pointer]:
+                    - /url: /code/residentmario/exercise-summary-functions-and-maps
+                    - generic [ref=e1788]:
+                      - generic [ref=e1789]:
+                        - generic [ref=e1790]: "Exercise: Summary Functions and Maps"
+                        - button [ref=e2442]: more_vert
+                      - generic [ref=e1794]: Updated 3 years ago
+                      - generic [ref=e1796]: 18,393 Pitchfork Reviews+9
+                  - generic [ref=e1797]:
+                    - generic [ref=e1798]:
+                      - button [ref=e2443] [cursor=pointer]:
+                        - generic [ref=e1800]: arrow_drop_up
+                      - generic [ref=e2444]: "308714"
+                    - generic [ref=e1802]:
+                      - img [ref=e2445]
+                      - link [ref=e2446] [cursor=pointer]:
+                        - /url: /residentmario
+                        - img [ref=e1806]
+            - generic [ref=e1810]:
+              - generic [ref=e1813]:
+                - generic [ref=e1814]: table_chart
+                - heading [level=2] [ref=e2448]: You May Also Like
+              - list [ref=e1817]:
+                - listitem [ref=e2449]:
+                  - link [ref=e2450] [cursor=pointer]:
+                    - /url: /datasets/asaniczka/trending-youtube-videos-113-countries
+                    - generic [ref=e1820]:
+                      - generic [ref=e1821]:
+                        - generic [ref=e1822]: Trending Youtube Video Statistics (113 Countries)
+                        - button [ref=e2451]: more_vert
+                      - link [ref=e2452]:
+                        - /url: /asaniczka
+                        - text: asaniczka
+                      - generic [ref=e1828]:
+                        - generic [ref=e1830]: Usability 10.0
+                        - text: · Updated 4 hours ago
+                      - generic [ref=e1832]: 1 File (CSV) · 3 GB · 5,177 downloads
+                  - generic [ref=e1833]:
+                    - generic [ref=e1834]:
+                      - button [ref=e2453] [cursor=pointer]:
+                        - generic [ref=e1836]: arrow_drop_up
+                      - generic [ref=e2454]: "160"
+                    - link [ref=e2455] [cursor=pointer]:
+                      - /url: /asaniczka
+                      - img [ref=e1841]
+                - listitem [ref=e2457]:
+                  - link [ref=e2458] [cursor=pointer]:
+                    - /url: /datasets/rsrishav/youtube-trending-video-dataset
+                    - generic [ref=e1846]:
+                      - generic [ref=e1847]:
+                        - generic [ref=e1848]: YouTube Trending Video Dataset (updated daily)
+                        - button [ref=e2459]: more_vert
+                      - link [ref=e2460]:
+                        - /url: /rsrishav
+                        - text: Rishav Sharma
+                      - generic [ref=e1854]:
+                        - generic [ref=e1856]: Usability 10.0
+                        - text: · Updated 2 years ago
+                      - generic [ref=e1858]: 22 Files (CSV, JSON) · 41.5K downloads
+                  - generic [ref=e1859]:
+                    - generic [ref=e1860]:
+                      - button [ref=e2461] [cursor=pointer]:
+                        - generic [ref=e1862]: arrow_drop_up
+                      - generic [ref=e2462]: "625"
+                    - link [ref=e2463] [cursor=pointer]:
+                      - /url: /rsrishav
+                      - img [ref=e1867]
+                - listitem [ref=e2465]:
+                  - link [ref=e2466] [cursor=pointer]:
+                    - /url: /datasets/datasnaek/youtube
+                    - generic [ref=e1872]:
+                      - generic [ref=e1873]:
+                        - generic [ref=e1874]: Trending YouTube Video Statistics and Comments
+                        - button [ref=e2467]: more_vert
+                      - link [ref=e2468]:
+                        - /url: /datasnaek
+                        - text: Mitchell J
+                      - generic [ref=e1880]:
+                        - generic [ref=e1882]: Usability 7.6
+                        - text: · Updated 8 years ago
+                      - generic [ref=e1884]: 6 Files (CSV, JSON) · 59 MB · 26.8K downloads
+                  - generic [ref=e1885]:
+                    - generic [ref=e1886]:
+                      - button [ref=e2469] [cursor=pointer]:
+                        - generic [ref=e1888]: arrow_drop_up
+                      - generic [ref=e2470]: "362"
+                    - link [ref=e2471] [cursor=pointer]:
+                      - /url: /datasnaek
+                      - img [ref=e1893]
+                - listitem [ref=e2473]:
+                  - link [ref=e2474] [cursor=pointer]:
+                    - /url: /datasets/areenjain/youtube-trending-videos-ind
+                    - generic [ref=e1898]:
+                      - generic [ref=e1899]:
+                        - generic [ref=e1900]: Youtube Trending videos IND
+                        - button [ref=e2475]: more_vert
+                      - link [ref=e2476]:
+                        - /url: /areenjain
+                        - text: Areen jain
+                      - generic [ref=e1906]:
+                        - generic [ref=e1908]: Usability 4.7
+                        - text: · Updated 2 years ago
+                      - generic [ref=e1910]: 1 File (CSV) · 104 kB · 93 downloads
+                  - generic [ref=e1911]:
+                    - generic [ref=e1912]:
+                      - button [ref=e2477] [cursor=pointer]:
+                        - generic [ref=e1914]: arrow_drop_up
+                      - generic [ref=e2478]: "1"
+                    - link [ref=e2479] [cursor=pointer]:
+                      - /url: /areenjain
+                      - img [ref=e1919]
+    - alert [ref=e1923]
+  - generic [active] [ref=e2482]:
+    - generic [ref=e2483]:
+      - generic [ref=e2484]:
+        - generic "Select Download via. kagglehub currently selected." [ref=e2485]: Download via
+        - generic [ref=e2486]:
+          - combobox "Select Download via. kagglehub currently selected." [ref=e2487] [cursor=pointer]:
+            - generic [ref=e2489]: kagglehub
+          - textbox: kagglehub
+          - img
+          - group:
+            - generic: Download via
+      - paragraph [ref=e2490]:
+        - text: New to Kaggle API? Here's how to
+        - link "set up your API keys. opens in new window" [ref=e2491] [cursor=pointer]:
+          - /url: /docs/api#authentication
+          - text: set up your API keys.
+      - generic [ref=e2492]:
+        - generic [ref=e2493]:
+          - button "View docs" [ref=e2495] [cursor=pointer]: article
+          - button "Copy code" [ref=e2497] [cursor=pointer]: content_copy
+        - code [ref=e2499]: "import kagglehub # Download latest version path = kagglehub.dataset_download(\"datasnaek/youtube-new\") print(\"Path to dataset files:\", path)"
+    - list [ref=e2500]:
+      - menuitem "Download dataset as zip (211 MB)" [ref=e2501] [cursor=pointer]:
+        - generic [ref=e2502]:
+          - generic [ref=e2503]: folder_zip
+          - paragraph [ref=e2504]: Download dataset as zip (211 MB)
+      - menuitem "Export metadata as Croissant" [ref=e2505] [cursor=pointer]:
+        - generic [ref=e2506]:
+          - generic [ref=e2507]: bakery_dining
+          - paragraph [ref=e2508]: Export metadata as Croissant

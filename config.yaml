@@ -41,12 +41,15 @@ training:
 
   # Loss — use BCEWithLogitsLoss (WeightedRandomSampler handles class imbalance)
   loss_function: "BCEWithLogitsLoss"
+  focal_loss_gamma: 2.0
 
   # Scheduler — CosineAnnealingWarmRestarts for smooth fine-tuning
   scheduler: "CosineAnnealingWarmRestarts"
   scheduler_T_0: 10       # First restart period (epochs)
   scheduler_T_mult: 2     # Multiply period after each restart
   scheduler_eta_min: 0.000001
+  scheduler_factor: 0.1    # Legacy key for validation
+  scheduler_patience: 5    # Legacy key for validation
 
   # Early stopping
   early_stopping_patience: 10
@@ -80,6 +83,17 @@ model:
     hidden_layers: [256, 64]
     dropout: 0.2
     activation: "GELU"
+
+  # Legacy sections for notebook validation
+  cv:
+    pretrained: true
+    feature_dim: 512
+    freeze_backbone: true
+  nlp:
+    checkpoint: "openai/clip-vit-base-patch32"
+    max_seq_length: 77
+    feature_dim: 512
+    freeze_backbone: true
 
 augmentation:
   rotation_range: [-10, 10]
