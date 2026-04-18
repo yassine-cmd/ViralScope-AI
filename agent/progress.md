@@ -3,52 +3,6 @@
 ## Project Overview
 Multimodal deep learning project to predict YouTube video viral multiplier using thumbnail images and titles. Now powered by **CLIP (Contrastive Language-Image Pre-training)** for native multimodal alignment.
 
-### 2026-04-18 - Balanced Dataset & Regularization Fixes
-**Status:** All Fixed ✅
-
-**Objective:** Address severe class imbalance (17% viral) causing poor PR-AUC and potential memorization on small dataset.
-
-**User-Requested Changes:**
-
-| # | Change | Before | After | Reason |
-|---|--------|--------|-------|--------|
-| 1 | **Balanced sampling** | Random 1,000 rows (82% non-viral) | Equal viral/non-viral (max 1,000 each) | 50/50 balance prevents model bias |
-| 2 | **max_per_class config** | Not defined | `max_per_class: 1000` | Controls balanced sample size |
-| 3 | **Fusion dropout** | `0.2` | `0.4` | Prevents head overfitting on small data |
-| 4 | **unfreeze_layers** | `3` | `1` | Reduced from ~14M to ~5M params to prevent backbone memorization |
-
-**Code Changes:**
-
-1. **config.yaml:**
-   - Added `max_per_class: 1000` to `data:` section
-   - Updated `min_dataset_size: 2000` (2 × max_per_class for balanced dataset)
-   - Changed `dropout: 0.4` in `model.fusion`
-   - Changed `unfreeze_layers: 1` in `two_stage`
-
-2. **Notebook Cell 8 (Splits):**
-   - Added balanced sampling AFTER LOO labels are recomputed:
-   ```python
-   _max_per_class = CONFIG['data'].get('max_per_class', 1000)
-   _viral_df    = labeled_df[labeled_df['is_viral'] == 1]
-   _nonviral_df = labeled_df[labeled_df['is_viral'] == 0]
-   _n = min(_max_per_class, len(_viral_df), len(_nonviral_df))
-   labeled_df = pd.concat([
-       _viral_df.sample(n=_n, random_state=CONFIG['project']['seed']),
-       _nonviral_df.sample(n=_n, random_state=CONFIG['project']['seed']),
-   ]).sample(frac=1, random_state=CONFIG['project']['seed']).reset_index(drop=True)
-   ```
-
-**Expected Impact:**
-- **PR-AUC**: Should improve significantly (was ~0.26) due to balanced batches
-- **Overfitting**: Reduced via higher dropout + minimal backbone unfreezing
-- **Training stability**: 50/50 balanced dataset eliminates class imbalance issues
-
-**Files Modified:**
-- `config.yaml` - Added max_per_class, increased dropout, reduced unfreeze_layers
-- `viralscope_full_pipeline.ipynb` - Cell 8 (balanced sampling after LOO labels)
-
----
-
 ### 2026-04-18 - Critical Training Bug Fixes
 **Status:** All Fixed ✅
 
@@ -60,25 +14,6 @@ Multimodal deep learning project to predict YouTube video viral multiplier using
 | 2 | **AMP + checkpointing conflict** | Disabled AMP (`scaler = None`) in Stage 2 when gradient checkpointing is active | Notebook Cell 13 |
 | 3 | **torch.compile state_dict prefix** | Save from `model_raw.state_dict()` instead of `model.state_dict()` | Notebook Cell 13 |
 | 4 | **LOO label leakage** | Compute channel stats ONLY from train data, moved compute_labels AFTER splits | Notebook Cells 5, 8 |
-
-### 2026-04-18 - AUC Inversion & Training Fixes (NEW)
-**Status:** All Fixed ✅
-
-**Root Cause:** AUC-ROC of 0.3991 (below 0.5 = inverted score rankings)
-
-**Critical Issues Fixed:**
-
-| # | Issue | Effect | Fix | Location |
-|---|-------|--------|-----|----------|
-| 1 | **Index corruption after compute_labels** | Wrong images/labels paired - ROOT CAUSE of AUC inversion | Fixed LOO formula: train rows use LOO mean, val/test use plain train mean. NO ROWS DROPPED (use global train mean fallback) | Notebook Cell 5 (compute_labels) |
-| 2 | **labeled_df undefined at Cell 6** | NameError (stale kernel dependency) | Added initial `labeled_df = compute_labels(CONFIG, clean_df)` call BEFORE thumbnail downloads | Notebook Cell 5 |
-| 3 | **Optimizer never updates backbone** | Stage 2 only trains head (waste of 45 epochs) | Changed `unfreeze_backbone` to use `optimizer.add_param_group()` (params NOT in optimizer at init) | scripts/03_train.py |
-| 4 | **All 151M params unfrozen** | Memorization on small data | Added partial unfreeze: only last N layers (~14M params). Added config option `unfreeze_layers: 3` | scripts/03_train.py, config.yaml |
-
-**Files Modified:**
-- `viralscope_full_pipeline.ipynb` - Cell 5 (compute_labels function rewritten, initial labeled_df creation)
-- `scripts/03_train.py` - unfreeze_backbone function (add_param_group + partial unfreeze)
-- `config.yaml` - Added `unfreeze_layers: 3` to two_stage section
 
 **Medium Priority Fixes:**
 
@@ -111,11 +46,6 @@ Multimodal deep learning project to predict YouTube video viral multiplier using
 - `models/fusion_model.py` - simplified feature input (1025 dims)
 - `scripts/03_train.py` - scheduler and unfreeze_backbone fixes
 - `progress.md` - this file
-
-**Additional Files (2026-04-18 AUC Fixes):**
-- `viralscope_full_pipeline.ipynb` - Cell 5 (compute_labels rewritten), Cell 8 (splits logic)
-- `scripts/03_train.py` - unfreeze_backbone (add_param_group + partial unfreeze)
-- `config.yaml` - Added `unfreeze_layers: 3`
 
 ---
 
