@@ -130,15 +130,17 @@ def validate_epoch(model, dataloader, criterion, device):
 
 
 def unfreeze_backbone(model, backbone_name, lr, optimizer):
-    """Unfreeze a backbone and add its params to the optimizer with a low LR."""
+    """Unfreeze a backbone and update its LR in existing param group (no duplicates)."""
     backbone = getattr(model, backbone_name)
     for param in backbone.parameters():
         param.requires_grad = True
-
-    optimizer.add_param_group({
-        "params": [p for p in backbone.parameters() if p.requires_grad],
-        "lr": lr,
-    })
+    
+    params = set(backbone.parameters())
+    for pg in optimizer.param_groups:
+        if params & set(pg['params']):
+            pg['lr'] = lr
+            break
+    
     trainable = sum(p.numel() for p in backbone.parameters() if p.requires_grad)
     print(f"  Unfroze {backbone_name}: {trainable:,} params at lr={lr}")
 
@@ -317,7 +319,7 @@ def main(config_path="config.yaml", epochs=None, batch_size=None):
         train_metrics = train_epoch(model, train_loader, criterion, optimizer, device, clip_norm)
         val_metrics = validate_epoch(model, val_loader, criterion, device)
 
-        scheduler.step(epoch)
+        scheduler.step(epoch + 1)
 
         log_entry = {
             "epoch": epoch + 1,
