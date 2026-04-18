@@ -293,6 +293,12 @@ def download_thumbnails(config, video_ids):
     print("TASK T1.3: Downloading Thumbnails")
     print("="*60)
     
+    max_samples = config['data'].get('min_dataset_size', 10000)
+    if len(video_ids) > max_samples:
+        print(f"Sampling {max_samples} from {len(video_ids)} videos...")
+        np.random.seed(config['project']['seed'])
+        video_ids = list(np.random.choice(video_ids, max_samples, replace=False))
+    
     thumb_dir = f"{config['data']['raw_dir']}/thumbnails"
     
     def download_one(video_id):
