@@ -56,7 +56,7 @@ def collect_predictions(model, dataloader, device):
         all_probs.append(probs)
         all_labels.append(labels)
 
-    return torch.stack(all_probs).numpy(), torch.stack(all_labels).numpy()
+    return torch.cat(all_probs).numpy(), torch.cat(all_labels).numpy()
 
 
 def find_optimal_threshold(labels, probs):
@@ -104,10 +104,10 @@ def evaluate(config_path="config.yaml"):
     print("\nFinding optimal threshold on validation set...")
     val_probs, val_labels = collect_predictions(model, val_loader, device)
     optimal_threshold, val_best_f1 = find_optimal_threshold(val_labels, val_probs)
-    print(f"  Optimal threshold: {optimal_threshold:.4f} (Val F1: {val_best_f1:.4f})")
+    print(f"Optimal threshold: {optimal_threshold:.4f} (Val F1: {val_best_f1:.4f})")
 
     if optimal_threshold < 0.2:
-        print(f"  Note: Threshold {optimal_threshold:.4f} is below 0.2 - low thresholds can be normal for well-calibrated models on imbalanced data")
+        print(f"Note: Threshold {optimal_threshold:.4f} is below 0.2 - this can be normal for imbalanced data")
 
     print("\nEvaluating on test set...")
     test_probs, test_labels = collect_predictions(model, test_loader, device)
@@ -125,25 +125,25 @@ def evaluate(config_path="config.yaml"):
     with open("results/metrics.json", "w") as f:
         json.dump(results, f, indent=2)
 
-    print("\n" + "=" * 60)
-    print("TEST SET EVALUATION")
+    print(f"\n{'='*60}")
+    print("TEST SET EVALUATION (Threshold from Validation)")
     print("=" * 60)
 
     print(f"\n--- With optimal threshold ({optimal_threshold:.4f}) ---")
-    print(f"  Accuracy:  {metrics['accuracy']:.4f}")
-    print(f"  F1-Score:  {metrics['f1']:.4f}")
-    print(f"  AUC-ROC:   {metrics['auc_roc']:.4f}")
-    print(f"  PR-AUC:    {metrics['pr_auc']:.4f}")
-    print(f"  Precision: {metrics['precision']:.4f}")
-    print(f"  Recall:    {metrics['recall']:.4f}")
-    print(f"  Confusion Matrix: {metrics['confusion_matrix']}")
+    print(f"Accuracy:  {metrics['accuracy']:.4f}")
+    print(f"F1-Score:  {metrics['f1']:.4f}")
+    print(f"AUC-ROC:   {metrics['auc_roc']:.4f}")
+    print(f"PR-AUC:    {metrics['pr_auc']:.4f}")
+    print(f"\nConfusion Matrix:")
+    print(f"{metrics['confusion_matrix']}")
 
     print(f"\n--- With fixed threshold (0.50) ---")
-    print(f"  Accuracy:  {metrics_fixed['accuracy']:.4f}")
-    print(f"  F1-Score:  {metrics_fixed['f1']:.4f}")
-    print(f"  Confusion Matrix: {metrics_fixed['confusion_matrix']}")
-
+    print(f"Accuracy:  {metrics_fixed['accuracy']:.4f}")
+    print(f"F1-Score:  {metrics_fixed['f1']:.4f}")
+    print(f"Confusion Matrix:")
+    print(f"{metrics_fixed['confusion_matrix']}")
     print("=" * 60)
+
     print(f"\nMetrics saved to: results/metrics.json")
 
     return results

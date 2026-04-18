@@ -1,6 +1,6 @@
 import os
-import numpy as np
 import torch
+import numpy as np
 from torch.utils.data import Dataset, DataLoader, WeightedRandomSampler
 from torchvision import transforms
 from PIL import Image

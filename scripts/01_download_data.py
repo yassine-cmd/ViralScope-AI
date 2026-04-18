@@ -19,7 +19,7 @@ from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import torch
-from transformers import DistilBertTokenizer
+from transformers import CLIPTokenizer
 from sklearn.model_selection import GroupShuffleSplit
 
 import yaml
@@ -438,9 +438,9 @@ def compute_viral_labels(config, df, channel_stats):
 
 
 def tokenize_texts(config, df):
-    """Task T1.7: Tokenize Text"""
+    """Task T1.7: Tokenize Text with CLIP Tokenizer"""
     print("\n" + "="*60)
-    print("TASK T1.7: Tokenize Text with DistilBERT")
+    print("TASK T1.7: Tokenize Text with CLIP")
     print("="*60)
     
     if len(df) == 0:
@@ -448,7 +448,9 @@ def tokenize_texts(config, df):
         return None, None
     
     tensor_dir = config['data']['tensor_dir']
-    max_len = config['model']['nlp']['max_seq_length']
+    clip_cfg = config['model']['clip']
+    max_len = clip_cfg.get('max_seq_length', 77)
+    checkpoint = clip_cfg['checkpoint']
     
     def clean_title(t):
         if pd.isna(t) or str(t).strip() == '':
@@ -459,8 +461,8 @@ def tokenize_texts(config, df):
     df['title'] = df['title'].apply(clean_title)
     titles = df['title'].tolist()
     
-    print(f"Tokenizing {len(titles)} titles...")
-    tokenizer = DistilBertTokenizer.from_pretrained(config['model']['nlp']['checkpoint'])
+    print(f"Tokenizing {len(titles)} titles with CLIP tokenizer...")
+    tokenizer = CLIPTokenizer.from_pretrained(checkpoint)
     
     batch_size = 5000
     all_ids = []
@@ -489,7 +491,7 @@ def tokenize_texts(config, df):
         'dataset_hash': df_hash,
         'num_samples': len(df),
         'max_seq_length': max_len,
-        'tokenizer_checkpoint': config['model']['nlp']['checkpoint']
+        'tokenizer_checkpoint': checkpoint
     }
     
     with open(f"{tensor_dir}/tokenizer_metadata.json", 'w') as f:
@@ -609,15 +611,20 @@ def main():
     video_ids = clean_df['video_id'].tolist()
     download_thumbnails(config, video_ids)
     
-    # T1.4: Filter
+    # T1.4: Filter — MANDATORY (no fallback to unfiltered data)
+    # Thumbnails are required for the CV branch; training without them
+    # fills the vision encoder with constant noise from gray placeholders.
     final_df = filter_valid_thumbnails(config)
     
     if len(final_df) == 0:
-        print("\n⚠️ No valid thumbnails. Using all videos without thumbnail filtering...")
-        final_df = clean_df.copy()
-        final_df.to_csv(f"{config['data']['processed_dir']}/final_dataset.csv", index=False)
+        print("\n❌ FATAL: No valid thumbnails downloaded!")
+        print("   The CV branch requires real thumbnails to learn.")
+        print("   Please check your internet connection and re-run.")
+        return
     
-    # T1.5: Channel stats
+    print(f"\n✓ {len(final_df)} videos with valid thumbnails (out of {len(clean_df)} clean)")
+    
+    # T1.5: Channel stats (computed ONLY on thumbnail-valid videos)
     final_df, channel_stats = compute_channel_stats(config, final_df)
     
     # T1.6: Labels
@@ -628,10 +635,10 @@ def main():
         print("   Please check your dataset source.")
         return
     
-    # T1.7: Tokenize
+    # T1.7: Tokenize (with CLIP tokenizer)
     tokenize_texts(config, labeled_df)
     
-    # T1.9: Splits
+    # T1.9: Splits (GroupShuffleSplit on thumbnail-valid, labeled data)
     create_splits(config, labeled_df)
     
     # T1.10: Class weights

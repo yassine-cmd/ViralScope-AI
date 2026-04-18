@@ -2,7 +2,7 @@ import torch
 import yaml
 from PIL import Image
 import numpy as np
-from transformers import DistilBertTokenizer
+from transformers import CLIPTokenizer
 import torchvision.transforms as transforms
 
 from models.multimodal import ViralScopeModel
@@ -16,18 +16,28 @@ class InferencePipeline:
         self.device = torch.device('cpu')
 
         self.model = ViralScopeModel(self.config)
-        self.model.load_state_dict(torch.load(model_path, map_location='cpu', weights_only=True))
+
+        # Handle both full checkpoint and raw state_dict
+        checkpoint = torch.load(model_path, map_location='cpu', weights_only=False)
+        if isinstance(checkpoint, dict) and 'model_state_dict' in checkpoint:
+            self.model.load_state_dict(checkpoint['model_state_dict'])
+        else:
+            self.model.load_state_dict(checkpoint)
         self.model.eval()
 
-        self.tokenizer = DistilBertTokenizer.from_pretrained(
-            self.config['model']['nlp']['checkpoint']
-        )
+        clip_cfg = self.config['model']['clip']
+        self.tokenizer = CLIPTokenizer.from_pretrained(clip_cfg['checkpoint'])
+        self.max_seq_length = clip_cfg.get('max_seq_length', 77)
 
+        # CLIP normalization
+        aug = self.config.get('augmentation', {})
         self.image_transform = transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                               std=[0.229, 0.224, 0.225])
+            transforms.Normalize(
+                mean=aug.get('normalize_mean', [0.48145466, 0.4578275, 0.40821073]),
+                std=aug.get('normalize_std', [0.26862954, 0.26130258, 0.27577711]),
+            ),
         ])
 
         self.use_xai = use_xai
@@ -50,7 +60,7 @@ class InferencePipeline:
 
         encoded = self.tokenizer(
             title,
-            max_length=self.config['model']['nlp']['max_seq_length'] if 'max_seq_length' in self.config['model']['nlp'] else 64,
+            max_length=self.max_seq_length,
             padding='max_length',
             truncation=True,
             return_tensors='pt'
