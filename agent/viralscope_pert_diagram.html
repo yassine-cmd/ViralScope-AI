@@ -1,0 +1,423 @@
+<style>
+  body { margin: 0; padding: 0; background: #ffffff; }
+  .phase-label { font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+  .node-group { cursor: pointer; }
+  .node-group:hover rect { opacity: 0.85; }
+  .tooltip {
+    position: absolute;
+    background: #f5f5f0;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #333333;
+    pointer-events: none;
+    max-width: 220px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: none;
+    z-index: 10;
+  }
+</style>
+
+<div id="tooltip" class="tooltip"></div>
+<div style="padding: 4px 0 8px;">
+<svg width="100%" viewBox="0 0 680 1560">
+<defs>
+  <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#666666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-brown" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#993556" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#993C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-black" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- ====== PHASE BAND: Environment Setup ====== -->
+<rect x="20" y="22" width="640" height="110" rx="10" fill="#E1F5EE" fill-opacity="0.45" stroke="#1D9E75" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="34" y="41" class="phase-label" fill="#0F6E56">Phase 0 — Environment Setup</text>
+
+<!-- T0.1 -->
+<g class="node-group" data-id="T0.1" data-desc="Create Python virtual environment (venv)">
+  <rect x="40" y="50" width="100" height="40" rx="6" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="90" y="67" text-anchor="middle" font-size="11" font-weight="500" fill="#085041">T 0.1</text>
+  <text x="90" y="81" text-anchor="middle" font-size="10" fill="#085041">Virtual env</text>
+</g>
+<!-- T0.2 -->
+<g class="node-group" data-id="T0.2" data-desc="Upgrade pip and install all core dependencies (PyTorch, transformers, gradio…)">
+  <rect x="185" y="50" width="100" height="40" rx="6" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="235" y="67" text-anchor="middle" font-size="11" font-weight="500" fill="#085041">T 0.2</text>
+  <text x="235" y="81" text-anchor="middle" font-size="10" fill="#085041">Install deps</text>
+</g>
+<!-- T0.3 -->
+<g class="node-group" data-id="T0.3" data-desc="Verify environment and create project directory structure">
+  <rect x="330" y="50" width="100" height="40" rx="6" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="380" y="67" text-anchor="middle" font-size="11" font-weight="500" fill="#085041">T 0.3</text>
+  <text x="380" y="81" text-anchor="middle" font-size="10" fill="#085041">Verify + dirs</text>
+</g>
+<!-- T0.4 -->
+<g class="node-group" data-id="T0.4" data-desc="Create .gitignore and .gitkeep files (optional)">
+  <rect x="475" y="50" width="100" height="40" rx="6" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="525" y="67" text-anchor="middle" font-size="11" font-weight="500" fill="#085041">T 0.4</text>
+  <text x="525" y="81" text-anchor="middle" font-size="10" fill="#085041">.gitignore</text>
+</g>
+
+<!-- Arrows Phase 0 -->
+<line x1="140" y1="70" x2="183" y2="70" stroke="#666666" stroke-width="1" marker-end="url(#arrow-gray)" fill="none"/>
+<line x1="285" y1="70" x2="328" y2="70" stroke="#666666" stroke-width="1" marker-end="url(#arrow-gray)" fill="none"/>
+<line x1="430" y1="70" x2="473" y2="70" stroke="#666666" stroke-width="1" marker-end="url(#arrow-gray)" fill="none"/>
+
+<!-- ====== PHASE BAND: Phase 1 Data Engineering ====== -->
+<rect x="20" y="155" width="640" height="470" rx="10" fill="#E6F1FB" fill-opacity="0.35" stroke="#185FA5" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="34" y="174" class="phase-label" fill="#0C447C">Phase 1 — Data Engineering &amp; Bias Resolution</text>
+
+<!-- T1.1 -->
+<g class="node-group" data-id="T1.1" data-desc="Download YouTube Trending Dataset from Kaggle → data/raw/trending.csv">
+  <rect x="40" y="182" width="110" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="95" y="200" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.1</text>
+  <text x="95" y="214" text-anchor="middle" font-size="10" fill="#042C53">Download data</text>
+</g>
+<!-- T1.2 -->
+<g class="node-group" data-id="T1.2" data-desc="Clean dataset: deduplicate videos by video_id, remove invalid rows → clean_dataset.csv">
+  <rect x="190" y="182" width="110" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="245" y="200" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.2</text>
+  <text x="245" y="214" text-anchor="middle" font-size="10" fill="#042C53">Deduplicate</text>
+</g>
+<!-- T1.3 -->
+<g class="node-group" data-id="T1.3" data-desc="Download thumbnails from YouTube CDN using ThreadPoolExecutor → thumbnails/ dir">
+  <rect x="340" y="182" width="110" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="395" y="200" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.3</text>
+  <text x="395" y="214" text-anchor="middle" font-size="10" fill="#042C53">Thumbnails CDN</text>
+</g>
+<!-- T1.4 -->
+<g class="node-group" data-id="T1.4" data-desc="Filter to videos with valid thumbnails only → final_dataset.csv">
+  <rect x="490" y="182" width="120" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="550" y="200" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.4</text>
+  <text x="550" y="214" text-anchor="middle" font-size="10" fill="#042C53">Filter valid imgs</text>
+</g>
+
+<!-- T1.5 -->
+<g class="node-group" data-id="T1.5" data-desc="Compute per-channel statistics (LOO avg views, video count) → channel_averages.csv">
+  <rect x="190" y="272" width="120" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="250" y="290" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.5</text>
+  <text x="250" y="304" text-anchor="middle" font-size="10" fill="#042C53">Channel stats</text>
+</g>
+<!-- T1.6 -->
+<g class="node-group" data-id="T1.6" data-desc="Label virality using LOO multiplier, apply class balance filter → labeled_dataset.csv">
+  <rect x="350" y="272" width="120" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="410" y="290" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.6</text>
+  <text x="410" y="304" text-anchor="middle" font-size="10" fill="#042C53">Label virality</text>
+</g>
+
+<!-- T1.7 -->
+<g class="node-group" data-id="T1.7" data-desc="Pre-tokenize all titles with DistilBERT tokenizer → input_ids.pt, attention_masks.pt (IMMUTABLE after this)">
+  <rect x="190" y="362" width="130" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="1"/>
+  <text x="255" y="380" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.7</text>
+  <text x="255" y="394" text-anchor="middle" font-size="10" fill="#042C53">Pre-tokenize text</text>
+</g>
+
+<!-- T1.9 -->
+<g class="node-group" data-id="T1.9" data-desc="Grouped train/val/test split by channel_id (no data leakage) → split index .pt files">
+  <rect x="370" y="362" width="120" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="430" y="380" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.9</text>
+  <text x="430" y="394" text-anchor="middle" font-size="10" fill="#042C53">Grouped split</text>
+</g>
+
+<!-- T1.10 -->
+<g class="node-group" data-id="T1.10" data-desc="Compute class weights from training set distribution → class_weights.pt">
+  <rect x="280" y="452" width="130" height="44" rx="6" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="345" y="470" text-anchor="middle" font-size="11" font-weight="500" fill="#042C53">T 1.10</text>
+  <text x="345" y="484" text-anchor="middle" font-size="10" fill="#042C53">Class weights</text>
+</g>
+
+<!-- Phase 1 arrows -->
+<line x1="150" y1="204" x2="188" y2="204" stroke="#185FA5" stroke-width="1" marker-end="url(#arrow-blue)" fill="none"/>
+<line x1="300" y1="204" x2="338" y2="204" stroke="#185FA5" stroke-width="1" marker-end="url(#arrow-blue)" fill="none"/>
+<line x1="450" y1="204" x2="488" y2="204" stroke="#185FA5" stroke-width="1" marker-end="url(#arrow-blue)" fill="none"/>
+<!-- 1.2 → 1.5 -->
+<line x1="245" y1="226" x2="245" y2="270" stroke="#185FA5" stroke-width="1" marker-end="url(#arrow-blue)" fill="none"/>
+<!-- 1.4 → 1.6 via path -->
+<path d="M550 226 L550 256 L410 256 L410 270" stroke="#185FA5" stroke-width="1" fill="none" marker-end="url(#arrow-blue)"/>
+<!-- 1.5 → 1.6 -->
+<line x1="310" y1="294" x2="348" y2="294" stroke="#185FA5" stroke-width="1" marker-end="url(#arrow-blue)" fill="none"/>
+<!-- 1.6 → 1.7 -->
+<path d="M410 316 L410 340 L255 340 L255 360" stroke="#185FA5" stroke-width="1" fill="none" marker-end="url(#arrow-blue)"/>
+<!-- 1.6 → 1.9 -->
+<line x1="430" y1="316" x2="430" y2="360" stroke="#185FA5" stroke-width="1" marker-end="url(#arrow-blue)" fill="none"/>
+<!-- 1.7 → 1.10 -->
+<path d="M255 406 L255 430 L345 430 L345 450" stroke="#185FA5" stroke-width="1" fill="none" marker-end="url(#arrow-blue)"/>
+<!-- 1.9 → 1.10 -->
+<path d="M430 406 L430 430 L345 430 L345 450" stroke="#185FA5" stroke-width="1" fill="none" marker-end="url(#arrow-blue)"/>
+
+<!-- ====== PHASE 2 BAND: CV Model ====== -->
+<rect x="20" y="650" width="300" height="130" rx="10" fill="#FAEEDA" fill-opacity="0.5" stroke="#BA7517" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="34" y="669" class="phase-label" fill="#854F0B">Phase 2 — CV Model</text>
+
+<!-- T2.1 -->
+<g class="node-group" data-id="T2.1" data-desc="Build frozen MobileNetV2 feature extractor (CVExtractor class) → models/cv_extractor.py">
+  <rect x="40" y="678" width="115" height="44" rx="6" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="97" y="696" text-anchor="middle" font-size="11" font-weight="500" fill="#412402">T 2.1</text>
+  <text x="97" y="710" text-anchor="middle" font-size="10" fill="#412402">CV extractor</text>
+</g>
+<!-- T2.2 -->
+<g class="node-group" data-id="T2.2" data-desc="Validate CVExtractor with real thumbnail images (64-sample batch forward pass)">
+  <rect x="185" y="678" width="115" height="44" rx="6" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+  <text x="242" y="696" text-anchor="middle" font-size="11" font-weight="500" fill="#412402">T 2.2</text>
+  <text x="242" y="710" text-anchor="middle" font-size="10" fill="#412402">Validate CV</text>
+</g>
+<!-- P2 arrows -->
+<line x1="155" y1="700" x2="183" y2="700" stroke="#BA7517" stroke-width="1" marker-end="url(#arrow-brown)" fill="none"/>
+
+<!-- ====== PHASE 3 BAND: NLP Model ====== -->
+<rect x="360" y="650" width="300" height="130" rx="10" fill="#FBEAF0" fill-opacity="0.5" stroke="#993556" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="374" y="669" class="phase-label" fill="#72243E">Phase 3 — NLP Model</text>
+
+<!-- T3.1 -->
+<g class="node-group" data-id="T3.1" data-desc="Build frozen DistilBERT [CLS] feature extractor (NLPExtractor class) → models/nlp_extractor.py">
+  <rect x="375" y="678" width="115" height="44" rx="6" fill="#ED93B1" stroke="#993556" stroke-width="0.5"/>
+  <text x="432" y="696" text-anchor="middle" font-size="11" font-weight="500" fill="#4B1528">T 3.1</text>
+  <text x="432" y="710" text-anchor="middle" font-size="10" fill="#4B1528">NLP extractor</text>
+</g>
+<!-- T3.2 -->
+<g class="node-group" data-id="T3.2" data-desc="Validate NLPExtractor with pre-tokenized tensors (64-sample batch forward pass)">
+  <rect x="520" y="678" width="115" height="44" rx="6" fill="#ED93B1" stroke="#993556" stroke-width="0.5"/>
+  <text x="577" y="696" text-anchor="middle" font-size="11" font-weight="500" fill="#4B1528">T 3.2</text>
+  <text x="577" y="710" text-anchor="middle" font-size="10" fill="#4B1528">Validate NLP</text>
+</g>
+<line x1="490" y1="700" x2="518" y2="700" stroke="#993556" stroke-width="1" marker-end="url(#arrow-red)" fill="none"/>
+
+<!-- Arrows from Phase 1 → Phase 2 & 3 -->
+<!-- 1.10 → 2.1 -->
+<path d="M345 496 L345 580 L97 580 L97 676" stroke="#666666" stroke-width="1" fill="none" marker-end="url(#arrow-gray)"/>
+<!-- 1.7 → 3.1 -->
+<path d="M255 406 L255 560 L432 560 L432 676" stroke="#666666" stroke-width="1" fill="none" marker-end="url(#arrow-gray)"/>
+<!-- 1.3 (thumbnails) → 2.2 -->
+<path d="M395 226 L395 240 L645 240 L645 640 L242 640 L242 676" stroke="#185FA5" stroke-width="0.7" stroke-dasharray="5 3" fill="none" marker-end="url(#arrow-blue)"/>
+<!-- 1.7 → 3.2 -->
+<path d="M255 406 L255 540 L577 540 L577 676" stroke="#185FA5" stroke-width="0.7" stroke-dasharray="5 3" fill="none" marker-end="url(#arrow-blue)"/>
+
+<!-- ====== PHASE 4 BAND: Fusion + Training ====== -->
+<rect x="20" y="812" width="640" height="200" rx="10" fill="#EEEDFE" fill-opacity="0.35" stroke="#534AB7" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="34" y="831" class="phase-label" fill="#3C3489">Phase 4 — Late Fusion &amp; Training</text>
+
+<!-- T4.1 -->
+<g class="node-group" data-id="T4.1" data-desc="Implement Focal Loss for imbalanced binary classification → models/losses.py">
+  <rect x="40" y="840" width="115" height="44" rx="6" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="97" y="858" text-anchor="middle" font-size="11" font-weight="500" fill="#26215C">T 4.1</text>
+  <text x="97" y="872" text-anchor="middle" font-size="10" fill="#26215C">Focal Loss</text>
+</g>
+<!-- T4.2 -->
+<g class="node-group" data-id="T4.2" data-desc="Build Fusion MLP head: Linear→BN→ReLU→Dropout × 2 + output layer → models/fusion_model.py">
+  <rect x="200" y="840" width="115" height="44" rx="6" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="257" y="858" text-anchor="middle" font-size="11" font-weight="500" fill="#26215C">T 4.2</text>
+  <text x="257" y="872" text-anchor="middle" font-size="10" fill="#26215C">Fusion MLP</text>
+</g>
+<!-- T4.3 -->
+<g class="node-group" data-id="T4.3" data-desc="Assemble complete multimodal model (CV + NLP + Fusion) → models/multimodal.py">
+  <rect x="360" y="840" width="115" height="44" rx="6" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="417" y="858" text-anchor="middle" font-size="11" font-weight="500" fill="#26215C">T 4.3</text>
+  <text x="417" y="872" text-anchor="middle" font-size="10" fill="#26215C">Multimodal model</text>
+</g>
+<!-- T4.4 -->
+<g class="node-group" data-id="T4.4" data-desc="Create ViralScopeDataset with on-the-fly image loading + DataLoader factory → data/dataset.py">
+  <rect x="510" y="840" width="120" height="44" rx="6" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="570" y="858" text-anchor="middle" font-size="11" font-weight="500" fill="#26215C">T 4.4</text>
+  <text x="570" y="872" text-anchor="middle" font-size="10" fill="#26215C">Dataset/Loader</text>
+</g>
+
+<!-- T4.5 -->
+<g class="node-group" data-id="T4.5" data-desc="Full training loop: Focal Loss + AdamW optimizer + ReduceLROnPlateau + early stopping → models/best_model.pt">
+  <rect x="200" y="940" width="130" height="44" rx="6" fill="#7F77DD" stroke="#534AB7" stroke-width="1"/>
+  <text x="265" y="958" text-anchor="middle" font-size="11" font-weight="500" fill="#EEEDFE">T 4.5</text>
+  <text x="265" y="972" text-anchor="middle" font-size="10" fill="#CECBF6">Train (frozen)</text>
+</g>
+<!-- T4.6 -->
+<g class="node-group" data-id="T4.6" data-desc="Unfreeze CV + NLP backbones and fine-tune with 10× lower LR (only if val_pr_auc < 0.5) → best_model_finetuned.pt">
+  <rect x="380" y="940" width="130" height="44" rx="6" fill="#7F77DD" stroke="#534AB7" stroke-width="1"/>
+  <text x="445" y="958" text-anchor="middle" font-size="11" font-weight="500" fill="#EEEDFE">T 4.6</text>
+  <text x="445" y="972" text-anchor="middle" font-size="10" fill="#CECBF6">Fine-tune (opt.)</text>
+</g>
+
+<!-- Phase 4 internal arrows -->
+<!-- 4.2 → 4.3 -->
+<line x1="315" y1="862" x2="358" y2="862" stroke="#534AB7" stroke-width="1" marker-end="url(#arrow-purple)" fill="none"/>
+<!-- 4.1 → 4.5 -->
+<path d="M97 884 L97 920 L245 920 L245 938" stroke="#534AB7" stroke-width="1" fill="none" marker-end="url(#arrow-purple)"/>
+<!-- 4.3 → 4.5 -->
+<path d="M417 884 L417 920 L265 920 L265 938" stroke="#534AB7" stroke-width="1" fill="none" marker-end="url(#arrow-purple)"/>
+<!-- 4.4 → 4.5 -->
+<path d="M570 884 L570 920 L285 920 L285 938" stroke="#534AB7" stroke-width="1" fill="none" marker-end="url(#arrow-purple)"/>
+<!-- 4.5 → 4.6 -->
+<line x1="330" y1="962" x2="378" y2="962" stroke="#534AB7" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arrow-purple)" fill="none"/>
+
+<!-- Arrows from Phase 2+3 → Phase 4 -->
+<!-- 2.1 → 4.2 -->
+<path d="M97 722 L97 810 L257 810 L257 838" stroke="#666666" stroke-width="1" fill="none" marker-end="url(#arrow-gray)"/>
+<!-- 2.1 → 4.3 -->
+<path d="M97 722 L97 780 L400 780 L400 838" stroke="#666666" stroke-width="0.7" stroke-dasharray="4 3" fill="none" marker-end="url(#arrow-gray)"/>
+<!-- 3.1 → 4.3 -->
+<path d="M432 722 L432 780 L434 780 L434 838" stroke="#666666" stroke-width="1" fill="none" marker-end="url(#arrow-gray)"/>
+<!-- 1.10 → 4.4 -->
+<path d="M345 496 L345 510 L570 510 L570 838" stroke="#185FA5" stroke-width="0.7" stroke-dasharray="4 3" fill="none" marker-end="url(#arrow-blue)"/>
+
+<!-- ====== PHASE 5 BAND: Evaluation + XAI + Deployment ====== -->
+<rect x="20" y="1040" width="640" height="300" rx="10" fill="#FAECE7" fill-opacity="0.4" stroke="#993C1D" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text x="34" y="1059" class="phase-label" fill="#712B13">Phase 5 — Evaluation, XAI &amp; Deployment</text>
+
+<!-- T5.1 -->
+<g class="node-group" data-id="T5.1" data-desc="Evaluate best model on held-out test set → results/metrics.json (AUC-ROC, F1, confusion matrix)">
+  <rect x="40" y="1070" width="110" height="44" rx="6" fill="#F0997B" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="95" y="1088" text-anchor="middle" font-size="11" font-weight="500" fill="#4A1B0C">T 5.1</text>
+  <text x="95" y="1102" text-anchor="middle" font-size="10" fill="#4A1B0C">Evaluate test</text>
+</g>
+<!-- T5.2 (Grad-CAM) -->
+<g class="node-group" data-id="T5.2" data-desc="Implement Grad-CAM for MobileNetV2 last conv layer → xai/gradcam.py">
+  <rect x="190" y="1070" width="110" height="44" rx="6" fill="#F0997B" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="245" y="1088" text-anchor="middle" font-size="11" font-weight="500" fill="#4A1B0C">T 5.2</text>
+  <text x="245" y="1102" text-anchor="middle" font-size="10" fill="#4A1B0C">Grad-CAM</text>
+</g>
+<!-- T5.3 (Integrated Gradients) -->
+<g class="node-group" data-id="T5.3" data-desc="Implement Captum Integrated Gradients for token attributions → xai/integrated_gradients.py">
+  <rect x="340" y="1070" width="110" height="44" rx="6" fill="#F0997B" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="395" y="1088" text-anchor="middle" font-size="11" font-weight="500" fill="#4A1B0C">T 5.3</text>
+  <text x="395" y="1102" text-anchor="middle" font-size="10" fill="#4A1B0C">Int. Gradients</text>
+</g>
+<!-- T5.4 (Inference pipeline) -->
+<g class="node-group" data-id="T5.4" data-desc="Inference pipeline: load model, preprocess inputs, call XAI → app/inference.py">
+  <rect x="490" y="1070" width="130" height="44" rx="6" fill="#F0997B" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="555" y="1088" text-anchor="middle" font-size="11" font-weight="500" fill="#4A1B0C">T 5.4</text>
+  <text x="555" y="1102" text-anchor="middle" font-size="10" fill="#4A1B0C">Inference pipeline</text>
+</g>
+<!-- T5.6 (Gradio) -->
+<g class="node-group" data-id="T5.6" data-desc="Gradio UI: thumbnail upload + title → viral score + visual XAI → app/gradio_app.py">
+  <rect x="490" y="1160" width="130" height="44" rx="6" fill="#D85A30" stroke="#993C1D" stroke-width="1"/>
+  <text x="555" y="1178" text-anchor="middle" font-size="11" font-weight="500" fill="#FAECE7">T 5.6</text>
+  <text x="555" y="1192" text-anchor="middle" font-size="10" fill="#F5C4B3">Gradio app</text>
+</g>
+
+<!-- Final output -->
+<g class="node-group" data-id="END" data-desc="ViralScope AI MVP — fully running Gradio demo with XAI explanations">
+  <rect x="240" y="1260" width="200" height="50" rx="10" fill="#993C1D" stroke="#712B13" stroke-width="1"/>
+  <text x="340" y="1281" text-anchor="middle" font-size="12" font-weight="500" fill="#FAECE7">ViralScope AI</text>
+  <text x="340" y="1297" text-anchor="middle" font-size="10" fill="#F5C4B3">MVP Complete</text>
+</g>
+
+<!-- Phase 5 internally strict execution arrows (5.1 -> 5.2 -> 5.3 -> 5.4 -> 5.6) -->
+<line x1="150" y1="1092" x2="187" y2="1092" stroke="#993C1D" stroke-width="1" marker-end="url(#arrow-orange)" fill="none"/>
+<line x1="300" y1="1092" x2="337" y2="1092" stroke="#993C1D" stroke-width="1" marker-end="url(#arrow-orange)" fill="none"/>
+<line x1="450" y1="1092" x2="487" y2="1092" stroke="#993C1D" stroke-width="1" marker-end="url(#arrow-orange)" fill="none"/>
+<line x1="555" y1="1114" x2="555" y2="1157" stroke="#993C1D" stroke-width="1" marker-end="url(#arrow-orange)" fill="none"/>
+
+<!-- 4.5 → 5.1 -->
+<path d="M265 984 L265 1020 L95 1020 L95 1068" stroke="#666666" stroke-width="1" fill="none" marker-end="url(#arrow-gray)"/>
+<!-- 4.6 → 5.1 (fine-tuned soft dependency) -->
+<path d="M445 984 L445 1030 L95 1030 L95 1068" stroke="#534AB7" stroke-width="0.7" stroke-dasharray="4 3" fill="none" marker-end="url(#arrow-purple)"/>
+
+<!-- 5.6 → END -->
+<path d="M555 1204 L555 1240 L340 1240 L340 1258" stroke="#993C1D" stroke-width="1" fill="none" marker-end="url(#arrow-orange)"/>
+
+<!-- ===== CRITICAL PATH annotation ===== -->
+<text x="340" y="1370" text-anchor="middle" font-size="11" fill="#666666">Critical path: 0.1→0.2→0.3 → 1.1→1.2→1.3→1.4→1.5→1.6→1.7→1.9→1.10 → 4.3→4.4→4.5 → 5.1→5.2→5.3→5.4→5.6</text>
+
+<!-- ===== LEGEND ===== -->
+<rect x="40" y="1400" width="600" height="140" rx="8" fill="#f5f5f0" fill-opacity="0.5" stroke="#999999" stroke-width="0.5"/>
+<text x="340" y="1420" text-anchor="middle" font-size="11" font-weight="500" fill="#666666">Legend</text>
+
+<!-- Row 1 Items -->
+<rect x="60" y="1432" width="12" height="12" rx="2" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="78" y="1443" font-size="10" fill="#666666">Phase 0 — Setup</text>
+
+<rect x="260" y="1432" width="12" height="12" rx="2" fill="#85B7EB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="278" y="1443" font-size="10" fill="#666666">Phase 1 — Data</text>
+
+<rect x="460" y="1432" width="12" height="12" rx="2" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
+<text x="478" y="1443" font-size="10" fill="#666666">Phase 2 — CV</text>
+
+<!-- Row 2 Items -->
+<rect x="60" y="1452" width="12" height="12" rx="2" fill="#ED93B1" stroke="#993556" stroke-width="0.5"/>
+<text x="78" y="1463" font-size="10" fill="#666666">Phase 3 — NLP</text>
+
+<rect x="260" y="1452" width="12" height="12" rx="2" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.5"/>
+<text x="278" y="1463" font-size="10" fill="#666666">Phase 4 — Fusion</text>
+
+<rect x="460" y="1452" width="12" height="12" rx="2" fill="#F0997B" stroke="#993C1D" stroke-width="0.5"/>
+<text x="478" y="1463" font-size="10" fill="#666666">Phase 5 — Eval/Deploy</text>
+
+<!-- Row 3 Dependencies -->
+<line x1="60" y1="1477" x2="100" y2="1477" stroke="#333333" stroke-width="2" marker-end="url(#arrow-black)"/>
+<text x="110" y="1481" font-size="10" fill="#666666">Hard dependency</text>
+
+<line x1="260" y1="1477" x2="300" y2="1477" stroke="#333333" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-black)"/>
+<text x="310" y="1481" font-size="10" fill="#666666">Soft / data dependency</text>
+
+<!-- Legend Description Texts -->
+<text x="60" y="1505" font-size="10" fill="#666666">Hover over any task node for details.</text>
+<text x="60" y="1520" font-size="10" fill="#666666">T 4.6 (fine-tuning) is optional — execute only if val PR-AUC &lt; 0.50 after T 4.5.</text>
+
+</svg>
+</div>
+
+<script>
+const tooltip = document.getElementById('tooltip');
+const descriptions = {
+  "T0.1": "Create Python virtual environment (venv/)",
+  "T0.2": "Upgrade pip; install PyTorch, transformers, gradio, captum…",
+  "T0.3": "Verify all imports; create project directory structure",
+  "T0.4": "Create .gitignore + .gitkeep files (optional)",
+  "T1.1": "Download Kaggle YouTube Trending Dataset → data/raw/trending.csv",
+  "T1.2": "Deduplicate by video_id (keep last), drop invalid rows → clean_dataset.csv",
+  "T1.3": "Parallel-download thumbnails from YouTube CDN → thumbnails/ + manifest.csv",
+  "T1.4": "Keep only videos with valid downloaded thumbnails → final_dataset.csv",
+  "T1.5": "Per-channel LOO avg views + video count → channel_averages.csv",
+  "T1.6": "Viral labeling via LOO multiplier (×1.5 threshold) → labeled_dataset.csv",
+  "T1.7": "DistilBERT tokenize all titles → input_ids.pt + attention_masks.pt (IMMUTABLE checkpoint)",
+  "T1.9": "GroupShuffleSplit by channel_id (no leakage) → train/val/test_indices.pt + split_report.json",
+  "T1.10": "Class weights from train distribution (normalized to sum=2) → class_weights.pt",
+  "T2.1": "Frozen MobileNetV2 backbone → CVExtractor class → models/cv_extractor.py",
+  "T2.2": "Forward pass validation with real 64-sample thumbnail batch",
+  "T3.1": "Frozen DistilBERT [CLS] extractor → NLPExtractor class → models/nlp_extractor.py",
+  "T3.2": "Forward pass validation with pre-tokenized tensor batch",
+  "T4.1": "Focal Loss (alpha + gamma) for imbalanced binary classification → models/losses.py",
+  "T4.2": "Fusion MLP: Linear→BN→ReLU→Dropout × 2 → models/fusion_model.py",
+  "T4.3": "ViralScopeModel = CVExtractor + NLPExtractor + FusionMLP → models/multimodal.py",
+  "T4.4": "ViralScopeDataset with on-the-fly image loading + augmentations → data/dataset.py",
+  "T4.5": "Training loop: AdamW + Focal Loss + ReduceLROnPlateau + early stopping → best_model.pt",
+  "T4.6": "OPTIONAL: Unfreeze backbones, fine-tune with 10× lower LR (only if val PR-AUC < 0.50)",
+  "T5.1": "Evaluate best_model.pt on test set → results/metrics.json (AUC-ROC, F1, CM)",
+  "T5.2": "Implement Grad-CAM for MobileNetV2 last conv layer → xai/gradcam.py",
+  "T5.3": "Implement Captum Integrated Gradients for token attributions → xai/integrated_gradients.py",
+  "T5.4": "Inference pipeline: load model, preprocess inputs, call XAI → app/inference.py",
+  "T5.6": "Gradio UI: thumbnail upload + title → viral score + visual XAI → app/gradio_app.py",
+  "END":  "ViralScope AI MVP — locally-running Gradio demo with full XAI explanations"
+};
+
+document.querySelectorAll('.node-group').forEach(el => {
+  el.addEventListener('mouseenter', (e) => {
+    const id = el.getAttribute('data-id');
+    const desc = descriptions[id] || el.getAttribute('data-desc') || '';
+    tooltip.textContent = `${id}: ${desc}`;
+    tooltip.style.display = 'block';
+  });
+  el.addEventListener('mousemove', (e) => {
+    const rect = el.closest('svg').parentElement.getBoundingClientRect();
+    tooltip.style.left = (e.clientX - rect.left + 12) + 'px';
+    tooltip.style.top  = (e.clientY - rect.top  + 12) + 'px';
+  });
+  el.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+});
+</script>
