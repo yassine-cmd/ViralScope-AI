@@ -26,6 +26,14 @@ Multimodal deep learning project to predict YouTube video viral multiplier using
 | 9 | **Redundant fusion features** | Removed |img-txt| and img*txt (reduced 2049→1025 dims) | models/fusion_model.py, config.yaml |
 | 10 | **Rate limit not enforced** | Added time.sleep-based throttling using config's thumbnail_rate_limit | Notebook Cell 6 |
 
+**Notebook Structure Fixes:**
+
+| # | Issue | Fix | Location |
+|---|-------|-----|----------|
+| 11 | **Trailing comma SyntaxError** | Removed trailing comma after comment in BICUBIC line | Notebook Cell 10 |
+| 12 | **Cell ordering broken** | Cell 5 had code after function definition - split incorrectly | Notebook Cell 5, 8 |
+| 13 | **Missing CSV save** | Added sampling and CSV save after compute_labels in Cell 8 | Notebook Cell 8 |
+
 **Root Causes of Overfitting Fixed:**
 
 1. **LOO Label Leakage** - Labels now computed AFTER splits, using only training data for channel statistics
