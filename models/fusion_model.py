@@ -3,15 +3,11 @@ import torch.nn as nn
 
 
 class FusionMLP(nn.Module):
-    """Cross-modal fusion head exploiting CLIP's shared latent space.
+    """Cross-modal fusion head using CLIP's shared latent space.
 
-    Instead of naively concatenating image and text embeddings, this module
-    computes explicit interaction features (element-wise difference, product,
-    and cosine similarity) that help the MLP learn alignment and contradiction
-    patterns between the thumbnail and title — a core virality signal.
-
-    Input dimensionality:
-        512 (img) + 512 (txt) + 512 (|diff|) + 512 (prod) + 1 (cos_sim) = 2049
+    Input: 512 (img) + 512 (txt) + 1 (cos_sim) = 1025
+    Note: Removed redundant |img-txt| and img*txt features that add no 
+    independent information and increase overfitting risk on small datasets.
     """
 
     def __init__(self, feature_dim=512, hidden_layers=None, dropout=0.2, activation="GELU"):
@@ -22,8 +18,7 @@ class FusionMLP(nn.Module):
 
         activation_fn = getattr(nn, activation)
 
-        # 4 * feature_dim (raw + interactions) + 1 (cosine similarity)
-        input_dim = 4 * feature_dim + 1
+        input_dim = 2 * feature_dim + 1  # img + txt + cos_sim
 
         layers = []
         for hidden_dim in hidden_layers:
@@ -45,13 +40,8 @@ class FusionMLP(nn.Module):
         Returns:
             logits: shape (batch,)
         """
-        # Cross-modal interaction features
-        cos_sim = (img_emb * txt_emb).sum(dim=1, keepdim=True)   # (batch, 1)
-        element_diff = torch.abs(img_emb - txt_emb)              # (batch, 512)
-        element_prod = img_emb * txt_emb                         # (batch, 512)
+        cos_sim = (img_emb * txt_emb).sum(dim=1, keepdim=True)
 
-        combined = torch.cat(
-            [img_emb, txt_emb, element_diff, element_prod, cos_sim], dim=1
-        )  # (batch, 2049)
+        combined = torch.cat([img_emb, txt_emb, cos_sim], dim=1)
 
         return self.network(combined).squeeze(-1)

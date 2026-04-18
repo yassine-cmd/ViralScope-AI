@@ -17,7 +17,7 @@ data:
   val_split: 0.15
   test_split: 0.15
 
-  min_dataset_size: 10000
+  min_dataset_size: 1000
   target_threshold: 1.5  # Multiplier > 1.5 = viral
 
   thumbnail_url_template: "https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
@@ -27,7 +27,8 @@ data:
 
 training:
   batch_size: 4  # Reduced for GTX 1650 4GB VRAM
-  num_workers: 0  # Avoid OOM on laptop
+  num_workers: 2  # Parallel data loading (GPU doesn't starve)
+  preload_images: false  # Set true for faster I/O (uses more RAM)
   epochs: 50
 
   # Learning rates (staggered for CLIP fine-tuning)
@@ -80,7 +81,7 @@ model:
     freeze_backbone: true
 
   fusion:
-    # Input = 4 * 512 (img, txt, diff, prod) + 1 (cos_sim) = 2049
+    # Input = 2 * 512 (img, txt) + 1 (cos_sim) = 1025
     hidden_layers: [256, 64]
     dropout: 0.2
     activation: "GELU"
@@ -97,13 +98,13 @@ model:
     freeze_backbone: true
 
 augmentation:
-  rotation_range: [-10, 10]
+  enabled: true
+  rotation_range: [0, 15]
   color_jitter_brightness: 0.2
   color_jitter_contrast: 0.2
-  color_jitter_saturation: 0.1
-  horizontal_flip_prob: 0.0
+  color_jitter_saturation: 0.2
+  horizontal_flip_prob: 0.5
   resize_size: [224, 224]
-  # CLIP normalization (NOT ImageNet)
   normalize_mean: [0.48145466, 0.4578275, 0.40821073]
   normalize_std: [0.26862954, 0.26130258, 0.27577711]
 
