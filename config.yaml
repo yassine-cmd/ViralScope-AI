@@ -1,0 +1,88 @@
+# ============================================================
+# VIRALSCOPE AI - V2 Enhanced Pipeline Configuration
+# ============================================================
+
+project:
+  name: "ViralScope AI V2"
+  seed: 42
+  device: "auto"
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  tensor_dir: "data/tensors"
+
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+
+  min_dataset_size: 2000
+  max_per_class: 999999     # Use all available data
+  buffer_multiplier: 1.5
+  target_threshold: 1.2
+  sampling_strategy: "balanced"    # Options: "balanced" | "all" | "imbalanced"
+  negative_ratio: 3              # For "imbalanced" sampling: negatives per positive (e.g. 3 or 5)
+  use_metadata: true        # Toggle for adding channel_ref_views to features
+
+  thumbnail_url_template: "https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
+  thumbnail_fallback_url: "https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+  thumbnail_rate_limit: 10
+  thumbnail_download_workers: 32
+
+model:
+  type: "stacking"   # Options: "logistic_regression", "xgboost", "stacking"
+
+  # ── Stacking ensemble ─────────────────────────────────────────────────────
+  stacking:
+    n_folds: 5
+    base_models:
+      - "logistic_regression"
+      - "xgboost"
+      - "lightgbm"
+      - "random_forest"
+    meta_learner: "xgboost"
+
+  # ── Base model hyperparameters ────────────────────────────────────────────
+  logistic_regression:
+    C: 0.05
+    max_iter: 1000
+
+  xgboost:
+    n_estimators: 500
+    max_depth: 6
+    learning_rate: 0.03
+    subsample: 0.8
+    colsample_bytree: 0.8
+    use_class_weights: true
+
+  lightgbm:
+    n_estimators: 500
+    num_leaves: 31
+    learning_rate: 0.03
+
+  random_forest:
+    n_estimators: 200
+    max_depth: 8
+    use_class_weights: true
+
+  # Embedding backbone (SigLIP)
+  embedding:
+    checkpoint: "google/siglip-base-patch16-224"
+    image_dim: 768
+    text_dim: 768
+    max_seq_length: 64
+
+  # Contrastive probe pairs
+  # Score = cos(img, positive) - cos(img, negative) → centred scalar per pair.
+  probe_pairs:
+    - ["a shocking or surprising YouTube thumbnail",       "a boring and unremarkable thumbnail"]
+    - ["a face with exaggerated emotional expression",     "a thumbnail with no human faces"]
+    - ["a thumbnail with bold text overlay bright colors", "a clean minimal thumbnail with no text"]
+    - ["a before and after transformation image",          "an ordinary everyday single image"]
+    - ["a curious mysterious image that makes you click",  "a clear simple informational image"]
+    - ["a high production value professional thumbnail",   "a low quality amateur thumbnail"]
+
+paths:
+  best_model: "models/best_model.joblib"
+  training_log: "models/training_log.csv"
+  results: "results/"
