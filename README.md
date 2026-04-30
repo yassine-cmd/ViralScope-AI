@@ -13,9 +13,6 @@ pip install -r requirements.txt
 # Run the pipeline
 python run_pipeline.py
 
-# Or run via notebook
-jupyter lab pipeline_notebook.ipynb
-
 # Run the Streamlit app
 streamlit run streamlit_app.py
 ```
