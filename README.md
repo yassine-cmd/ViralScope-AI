@@ -77,3 +77,8 @@ Edit `config.yaml` to customize:
 - **Probe pairs:** 6 contrastive text pairs for thumbnail scoring
 - **Features:** SigLIP image + text embeddings, probe scores, visual stats, title features, metadata
 - **Ensemble:** Stacking with LR, XGBoost, LightGBM, RandomForest meta-learned by XGBoost
+
+**⚠️ Note for Streamlit App:** In order to make the fetching process work, you need to provide a YouTube API key. Create a `.streamlit` folder in the root directory containing a `secrets.toml` file with your key:
+```toml
+# .streamlit/secrets.toml
+YOUTUBE_API_KEY = "your_youtube_api_key_here"
