@@ -1,6 +1,7 @@
 # ViralScope AI
 
 Modular NLP pipeline for YouTube viral video prediction using SigLIP embeddings and a stacking ensemble model.
+The Dataset used: https://www.kaggle.com/datasets/datasnaek/youtube-new
 
 ## Quick Start
 
